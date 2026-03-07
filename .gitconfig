@@ -1,0 +1,16 @@
+[user]
+	email = paul.negoescu@nagarro.com
+	name = Paul Negoescu
+[core]
+	autocrlf = false
+	pager = delta
+[pull]
+	rebase = false
+[alias]
+	l = log --oneline --decorate --graph --all
+[init]
+	defaultbranch = main
+[rebase]
+	autoStash = true
+[rerere]
+	enabled = true
