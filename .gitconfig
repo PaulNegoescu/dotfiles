@@ -4,12 +4,18 @@
 [core]
 	autocrlf = false
 	pager = delta
+[delta]
+  navigate = true 
 [pull]
 	rebase = false
 [alias]
 	l = log --oneline --decorate --graph --all
 [init]
 	defaultbranch = main
+[interactive]
+  diffFilter = delta --color-only
+[merge]
+  conflictStyle = zdiff3
 [rebase]
 	autoStash = true
 [rerere]

@@ -3,8 +3,12 @@ set -e
 
 DOTFILES_DIR="$HOME/dotfiles"
 
+zsh -c 'git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions'
+zsh -c 'git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting'
+
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 ln -sf "$DOTFILES_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
+ln -sf "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
 
 # Install fonts
 if [ -d "$DOTFILES_DIR/fonts" ]; then
