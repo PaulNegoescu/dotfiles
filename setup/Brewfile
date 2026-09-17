@@ -16,7 +16,7 @@ brew "gitleaks" # Audit git repos for secrets
 brew "gnupg" # Encryption and signing capabilities for data verification
 brew "pnpm" # Efficient Node.js package manager
 brew "prettyping" # Prettier and compact `ping`
-brew "python@3.11" # Required by awscli
+brew "python" # FOr Python work or node module builds
 brew "ripgrep" # Searching within files (better `grep`)
 brew "shellcheck" # Shell scripts linting
 brew "sops" # Secrets manager
@@ -29,7 +29,6 @@ brew "zsh" # A shell of choice
 brew "zsh-autosuggestions" # Fish-like autosuggestions for Zsh
 brew "zsh-fast-syntax-highlighting" # Feature-rich syntax highlighting for Zsh
 brew "modem-dev/tap/hunk" # Review-first terminal diff viewer (better `diff`)
-brew "orbstack" # Docker alternative
 
 # Fonts
 cask "font-meslo-lg-nerd-font"
@@ -44,6 +43,7 @@ cask "keka" # File archiver and extractor
 cask "marta" # File manager
 cask "obsidian" # Main note taking app
 cask "optimage" # Image optimization
+cask "orbstack" # Docker alternative
 cask "pearcleaner" # Clean up macOS from junk and apps leftovers
 cask "raycast" # All-in-one app / tasks launcher
 cask "signal" # Messenger

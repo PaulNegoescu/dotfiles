@@ -73,17 +73,8 @@ alias re="nr release"
 
 # Apps
 
-# GitHub Desktop
-alias t="github ."
-
-# Lazydocker
-alias ld="lazydocker"
-
-# Lazygit
-alias lg="lazygit --use-config-dir $DOTFILES/lazygit"
-
 # File Manager
-alias ff="open -a 'Nimble Commander' ."
+alias ff="open -a 'Marta' ."
 
 #
 # Built-ins upgrades
@@ -176,8 +167,6 @@ function git() {
       pnpm install
     elif [[ -r "./package-lock.json" ]]; then
       npm install
-    elif [[ -r "./bun.lock" ]]; then
-      bun install
     fi
   else
     command git $@

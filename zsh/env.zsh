@@ -127,8 +127,8 @@ export CDK_DISABLE_CLI_TELEMETRY=1
 export GH_TELEMETRY=false
 
 # Node & NPM
-export NPM_CONFIG_INIT_AUTHOR_NAME="Nick Plekhanov"
-export NPM_CONFIG_INIT_AUTHOR_URL="https://plekhanov.me/"
+export NPM_CONFIG_INIT_AUTHOR_NAME="Paul Negoescu"
+export NPM_CONFIG_INIT_AUTHOR_URL="https://github.com/PaulNegoescu"
 export NPM_CONFIG_INIT_LICENSE="MIT"
 export NPM_CONFIG_INIT_VERSION="0.1.0"
 export NPM_CONFIG_PROGRESS="true"

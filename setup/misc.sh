@@ -63,6 +63,11 @@ if command_exists gh && ! gh auth status &> /dev/null; then
   echo "[GitHub CLI] You are not logged into any GitHub hosts. To log in, run: ${BOLD}gh auth login${RESET}"
 fi
 
+# Install and activate the latest Node.js LTS release
+eval "$(fnm env --shell bash)"
+fnm install --lts --use
+fnm default "$(fnm current)"
+
 # Node.js global config
 info "🚀 Installing Node.js dependencies…"
 # Less verbose output
@@ -79,12 +84,3 @@ npm config set allow-git none
 # npm config set allow-remote none
 # Only install package versions published at least 7 days ago
 npm config set min-release-age 7
-
-# Npm packages
-packages=(
-  npm-upgrade
-  aws-cdk
-  serverless
-  @antfu/ni
-)
-npm install -g "${packages[@]}"

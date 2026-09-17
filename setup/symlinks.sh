@@ -207,11 +207,6 @@ install_extras() {
     sudo mkdir -p "/usr/local/bin"
   fi
 
-  # CotEditor: Install `cot` command-line tool
-  command -v cot &> /dev/null || {
-    symlink_file "/Applications/CotEditor.app/Contents/SharedSupport/bin/cot" "/usr/local/bin/cot"
-  }
-
   #
   # VSCode
   #
@@ -225,25 +220,11 @@ install_extras() {
   rm -rf "$vscode_user_folder"
   ln -sfn "$DOTFILES_DIR/vscode/User" "$vscode_user_folder"
 
-  # Lazydocker
-  symlink_file "$DOTFILES_DIR/lazydocker/config.yml" "$HOME/Library/Application Support/lazydocker/config.yml"
-
-  # Lazygit
-  symlink_file "$DOTFILES_DIR/lazygit/state.yml" "$HOME/Library/Application Support/lazygit/state.yml"
-
   # GPG
   symlink_file "$DOTFILES_DIR/gpg/gpg-agent.conf" "$HOME/.gnupg/gpg-agent.conf"
 
   # Quick-Look plugins to enhance experience using file manager
   symlink_file "$DOTFILES_DIR/ql-plugins" "$HOME/Library/QuickLook"
-
-  # Firefox Developer Edition
-  ff_dev_profile_dir="$("$DOTFILES_DIR"/firefox/lib/get-firefox-dev-path)"
-  symlink_file "$DOTFILES_DIR/firefox/user.js" "$ff_dev_profile_dir/user.js" true
-  rm -rf "$ff_dev_profile_dir/chrome"
-  mkdir -p "$ff_dev_profile_dir/chrome"
-  ln "$DOTFILES_DIR/firefox/chrome/userContent.css" "$ff_dev_profile_dir/chrome/userContent.css"
-  ln "$DOTFILES_DIR/firefox/chrome/userChrome.css" "$ff_dev_profile_dir/chrome/userChrome.css"
 
   #
   # AI agents
