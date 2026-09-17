@@ -15,7 +15,7 @@ export WORKSPACE="$HOME/dev"
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR="nano"
 else
-  export EDITOR="cot"
+  export EDITOR="code --wait"
 fi
 export VISUAL="$EDITOR"
 

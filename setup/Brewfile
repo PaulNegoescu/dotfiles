@@ -16,7 +16,7 @@ brew "gitleaks" # Audit git repos for secrets
 brew "gnupg" # Encryption and signing capabilities for data verification
 brew "pnpm" # Efficient Node.js package manager
 brew "prettyping" # Prettier and compact `ping`
-brew "python" # FOr Python work or node module builds
+brew "python" # For Python work or node module builds
 brew "ripgrep" # Searching within files (better `grep`)
 brew "shellcheck" # Shell scripts linting
 brew "sops" # Secrets manager
