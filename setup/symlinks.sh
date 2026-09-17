@@ -2,6 +2,20 @@
 
 set -euo pipefail
 
+DRY_RUN=false
+
+case "${1:-}" in
+  --dry-run)
+    DRY_RUN=true
+    ;;
+  "")
+    ;;
+  *)
+    echo "Usage: $0 [--dry-run]" >&2
+    exit 1
+    ;;
+esac
+
 DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "$0")/.." && pwd)}"
 TILDE_DIR="$DOTFILES_DIR/tilde"
 
@@ -32,6 +46,10 @@ skipped() {
   printf "\r\033[2K  [skipped]  $1\n"
 }
 
+preview() {
+  printf '  [dry-run] %s\n' "$1"
+}
+
 fail() {
   printf "\r\033[2K  [\033[0;31m✖\033[0m] $1\n"
   echo ''
@@ -45,6 +63,20 @@ symlink_file() {
   local backup=""
   local skip=""
   local action=""
+
+  if [ "$DRY_RUN" = true ]; then
+    if [ ! -e "$src" ] && [ ! -L "$src" ]; then
+      preview "source is missing: $src"
+    elif [ -L "$dst" ] && [ "$(readlink "$dst")" == "$src" ]; then
+      preview "already linked: $(tildify "$dst")"
+    elif [ -e "$dst" ] || [ -L "$dst" ]; then
+      preview "would prompt before replacing: $(tildify "$dst")"
+    else
+      preview "would link $(tildify "$dst") -> $src"
+    fi
+
+    return
+  fi
 
   if [ ! -e "$src" ] && [ ! -L "$src" ]; then
     fail "Source does not exist: $src"
@@ -167,7 +199,9 @@ install_dotfiles() {
   local skip_all=false
 
   # Create .config directory if it doesn't exist
-  mkdir -p ~/.config
+  if [ "$DRY_RUN" = false ]; then
+    mkdir -p "$HOME/.config"
+  fi
 
   cd "$TILDE_DIR"
 
@@ -215,11 +249,14 @@ install_extras() {
   local skip_all=false
 
   # Link only SSH configuration; preserve keys and other SSH files
-  mkdir -p "$HOME/.ssh"
-  chmod 700 "$HOME/.ssh"
+  if [ "$DRY_RUN" = false ]; then
+    mkdir -p "$HOME/.ssh"
+    chmod 700 "$HOME/.ssh"
+  fi
+  
   symlink_file "$TILDE_DIR/.ssh/config" "$HOME/.ssh/config"
 
-  if [ ! -d "/usr/local/bin" ]; then
+  if [ "$DRY_RUN" = false ] && [ ! -d "/usr/local/bin" ]; then
     echo "Administrator password required to create /usr/local/bin:"
     sudo mkdir -p "/usr/local/bin"
   fi
