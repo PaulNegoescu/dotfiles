@@ -10,14 +10,9 @@ prepend() {
   [ -d "$1" ] && PATH="$1:$PATH"
 }
 
-# CotEditor and VSCode install their CLI tools here
+# Common local CLI install locations
 prepend "/usr/local/bin"
-
-# Cursor CLI installs here
 prepend "$HOME/.local/bin"
-
-# Flutter
-prepend "$HOME/Projects/flutter/bin"
 
 # Homebrew binaries
 # > $(brew --prefix)
@@ -27,7 +22,9 @@ prepend "$homebrew_path/sbin"
 
 # fnm, Node version manager: https://github.com/Schniz/fnm
 # Tell fnm explicitly that we're using zsh to avoid brittle autodetection
-eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell zsh)"
+if command -v fnm &> /dev/null; then
+  eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell zsh)"
+fi
 
 # Custom dotfiles binaries
 prepend "$HOME/dotfiles/bin/lib"

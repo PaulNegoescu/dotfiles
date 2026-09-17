@@ -1,14 +1,8 @@
 # See more: https://git-scm.com/docs/git-config
 
 # general config
-
-[user]
-  name = Nick Plekhanov
-  email = nicksp@users.noreply.github.com
-  signingKey = 77258BB2E99B579D
-
 [github]
-  user = nicksp
+  user = PaulNegoescu
 
 [init]
   defaultBranch = main
@@ -26,10 +20,10 @@
   fsckobjects = true
 
 [core]
-  editor = cot --wait
+  editor = code --wait
   pager = hunk pager
   autocrlf = input
-  safecrlf = false
+  safecrlf = warn
   excludesFile = ~/.gitignore
   quotePath = false
   # Make `git rebase` safer on macOS
@@ -42,7 +36,7 @@
 
 [help]
   # Correct typos
-  autoCorrect = 1
+  autoCorrect = prompt
 
 [color]
   # Use colors in Git commands that are capable of colored output when
@@ -88,12 +82,12 @@
 
 # Any GitHub repo with my username should be checked out r/w by default
 # http://rentzsch.tumblr.com/post/564806957/public-but-hackable-git-submodules
-[url "git@github.com:nicksp/"]
-  insteadOf = "git://github.com/nicksp/"
+[url "git@github.com:PaulNegoescu/"]
+  insteadOf = "git://github.com/PaulNegoescu/"
 
 # When accidentally cloning the HTTPS version of a repository instead of the SSH version
-[url "git@github.com:nicksp/"]
-  insteadOf = "https://github.com/nicksp/"
+[url "git@github.com:PaulNegoescu/"]
+  insteadOf = "https://github.com/PaulNegoescu/"
 
 [protocol "file"]
   # Always permit operations using file protocol without any restrictions or warnings
@@ -106,12 +100,6 @@
   verbose = true
   # Custom template for new commit messages
   template = ~/.gitmessage
-  # Sign all commits by default
-  gpgSign = true
-
-[tag]
-  # Sign all tags by default
-  gpgSign = true
 
 [log]
   # Show branch names with git log
