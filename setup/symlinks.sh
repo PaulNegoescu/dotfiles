@@ -5,7 +5,7 @@ set -euo pipefail
 DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "$0")/.." && pwd)}"
 TILDE_DIR="$DOTFILES_DIR/tilde"
 
-EXCLUDE_FILES=(".DS_Store" "Brewfile.lock.json" "README.md" ".codex")
+EXCLUDE_FILES=(".DS_Store" "Brewfile.lock.json" "README.md" ".codex" ".ssh")
 
 indent() {
   sed 's/^/  /'
@@ -35,16 +35,20 @@ skipped() {
 fail() {
   printf "\r\033[2K  [\033[0;31m✖\033[0m] $1\n"
   echo ''
-  exit
+  exit 1
 }
 
 symlink_file() {
   local src=$1 dst=$2 isHardLink=${3:-false}
 
-  local overwrite
-  local backup
-  local skip
-  local action
+  local overwrite=""
+  local backup=""
+  local skip=""
+  local action=""
+
+  if [ ! -e "$src" ] && [ ! -L "$src" ]; then
+    fail "Source does not exist: $src"
+  fi
 
   if [ ! -d "$(dirname "$dst")" ]; then
     mkdir -p "$(dirname "$dst")"
@@ -127,7 +131,9 @@ handle_existing_file() {
       S)
         skip_all=true
         ;;
-      *) ;;
+      *)
+        skip=true
+        ;;
 
     esac
   fi
@@ -142,8 +148,14 @@ handle_existing_file() {
   fi
 
   if [ "$backup" == "true" ]; then
-    mv "$dst" "${dst}.backup"
-    success "moved $dst to ${dst}.backup"
+    local backup_path="${dst}.backup"
+
+    if [ -e "$backup_path" ] || [ -L "$backup_path" ]; then
+      backup_path="${dst}.backup.$(date +%Y%m%d%H%M%S)"
+    fi
+
+    mv "$dst" "$backup_path"
+    success "moved $dst to $backup_path"
   fi
 }
 
@@ -202,6 +214,11 @@ install_extras() {
   local backup_all=false
   local skip_all=false
 
+  # Link only SSH configuration; preserve keys and other SSH files
+  mkdir -p "$HOME/.ssh"
+  chmod 700 "$HOME/.ssh"
+  symlink_file "$TILDE_DIR/.ssh/config" "$HOME/.ssh/config"
+
   if [ ! -d "/usr/local/bin" ]; then
     echo "Administrator password required to create /usr/local/bin:"
     sudo mkdir -p "/usr/local/bin"
@@ -217,8 +234,7 @@ install_extras() {
   }
   # Enable settings sync from dotfiles
   vscode_user_folder="$HOME/Library/Application Support/Code/User"
-  rm -rf "$vscode_user_folder"
-  ln -sfn "$DOTFILES_DIR/vscode/User" "$vscode_user_folder"
+  symlink_file "$DOTFILES_DIR/vscode/User" "$vscode_user_folder"
 
   # GPG
   symlink_file "$DOTFILES_DIR/gpg/gpg-agent.conf" "$HOME/.gnupg/gpg-agent.conf"

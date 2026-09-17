@@ -56,11 +56,6 @@ if [ $# -ne 1 ] || [ "$1" != "-y" ]; then
   read key
 fi
 
-# Backup existing zsh file
-if [[ -e "$HOME/.zshrc" ]]; then
-  mv "$HOME/.zshrc" "$HOME/.zshrc.backup"
-fi
-
 # Use Touch ID to authorize sudo
 if [ ! -f /etc/pam.d/sudo_local ]; then
   title "🔒 Enabling Touch ID to authorize sudo commands…"
