@@ -43,7 +43,7 @@ ${yellow}
         ':::::::::::::::'
  ____________/_ __ \____________
 |                               |
-|  Welcome to @nicksp dotfiles  |
+|  Welcome to Paul's dotfiles   |
 |_______________________________|
 "
 echo

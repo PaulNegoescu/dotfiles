@@ -12,7 +12,7 @@
     "check": "bin/lib/check",
     "format": "prettier --log-level warn --ignore-unknown --write \"**/*.{js,cjs,ts,md,json,sh}\" \"bin/*\""
   },
-  "author": "Nick Plekhanov",
+  "author": "Paul Negoescu",
   "license": "MIT",
   "dependencies": {
     "avif": "^0.5.3"

@@ -1,11 +1,6 @@
-# ~nicksp 🌮
+# Paul's Dotfiles 🌮
 
 My personal dotfiles for configuring macOS with Zsh and Homebrew.
-
-![nicksp terminal](screenshot.png)
-
-> [!IMPORTANT]  
-> Please only open pull requests that fix bugs or add improvements without any breaking changes.
 
 > [!WARNING]  
 > I recommend forking this repository to create your own set of dotfiles.
@@ -29,7 +24,6 @@ My personal dotfiles for configuring macOS with Zsh and Homebrew.
 - git / hunk terminal diff viewer.
 - Sensible [macOS defaults](setup/macos.sh).
 - [Visual Studio Code settings synchronization](vscode/).
-- [Firefox custom styles](firefox/).
 - Config for other apps and utils.
 - [macOS apps and VSCode extensions](setup/Brewfile) I use.
 - [macOS tips & tricks](/docs/macos%20tips%20&%20tricks.md).
@@ -50,14 +44,13 @@ My personal dotfiles for configuring macOS with Zsh and Homebrew.
       ssh -T git@github.com
       ```
 
-1. Configure [GPG commit signature verification](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#gpg-commit-signature-verification)
 1. Install [MonoLisa font](https://www.monolisa.dev/)
 1. Choose _manual_ or _automatic_ dotfiles installation below
 
 ### Manually
 
 ```shell
-git clone git@github.com:nicksp/dotfiles.git ~/dotfiles
+git clone git@github.com:PaulNegoescu/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./setup/zsh.sh
 ./setup/brew.sh
@@ -73,7 +66,7 @@ To automate the setup of your dotfiles on a new machine, use the [setup](./setup
 > Use at your own risk!
 
 ```shell
-git clone git@github.com:nicksp/dotfiles.git ~/dotfiles
+git clone git@github.com:PaulNegoescu/dotfiles.git ~/dotfiles
 ~/dotfiles/setup.sh
 ```
 
@@ -86,10 +79,6 @@ This will install all required dotfiles in your home directory as symlinks. Ever
 ```shell
 set-defaults
 ```
-
-### Use alternative apps icons
-
-Refer to the [icons documentation](icons/README.md) for available icon variants.
 
 ### Install colors themes
 
@@ -127,6 +116,10 @@ git pull
 ## License
 
 MIT License.
+
+## Attribution
+
+Originally forked from [nicksp/dotfiles](https://github.com/nicksp/dotfiles), licensed under the MIT License.
 
 ## Inspiration
 
