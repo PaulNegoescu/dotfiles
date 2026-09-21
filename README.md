@@ -40,7 +40,7 @@ My personal dotfiles for configuring macOS with Zsh and Homebrew.
    1. [Add your public SSH key to GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
    1. Test your authentication with:
 
-      ```
+      ```bash
       ssh -T git@github.com
       ```
 
@@ -65,7 +65,7 @@ To automate the setup of your dotfiles on a new machine, use the [setup](./setup
 > [!CAUTION]  
 > Use at your own risk!
 
-```shell
+```bash
 git clone git@github.com:PaulNegoescu/dotfiles.git ~/dotfiles
 ~/dotfiles/setup.sh
 ```
@@ -76,13 +76,13 @@ This will install all required dotfiles in your home directory as symlinks. Ever
 
 ### Set macOS defaults
 
-```shell
+```bash
 set-defaults
 ```
 
 ### Install colors themes
 
-```shell
+```bash
 sync-color-themes
 ```
 
@@ -107,7 +107,7 @@ If this file exists, it will be automatically included after the configurations 
 
 ## Updating
 
-```shell
+```bash
 cd ~/dotfiles
 git pull
 ./setup.sh
