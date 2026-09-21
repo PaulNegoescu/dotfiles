@@ -15,7 +15,6 @@ source_brew_plugin "zsh-autosuggestions"
 
 # Enable zsh-fast-syntax-highlighting: https://github.com/zdharma-continuum/fast-syntax-highlighting#installation
 source_brew_plugin "zsh-fast-syntax-highlighting"
-fast-theme "$DOTFILES/colors/fast-syntax-highlighting.ini" --quiet
 
 # Enable fzf: https://github.com/junegunn/fzf
 if command_exists fzf; then

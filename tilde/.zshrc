@@ -28,11 +28,11 @@ source "$DOTFILES/zsh/init.zsh"
 # Allow local (private) overrides if present (PATH additions, work-specific aliases, etc.)
 [ -f ~/.zsh.local ] && source ~/.zsh.local
 
-# pnpm
+# pnpm global executables
 export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 
 # Add GPG key

@@ -76,13 +76,11 @@ zstyle ':completion:*' complete true
 
 zstyle ':completion:*' file-sort modification
 
-zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
-zstyle ':completion:*:*:*:*:descriptions' format '%F{blue}-- %D %d --%f'
-zstyle ':completion:*:*:*:*:messages' format ' %F{purple} -- %d --%f'
-zstyle ':completion:*:*:*:*:warnings' format ' %F{red}-- no matches found --%f'
+zstyle ':completion:*:*:*:*:corrections' format '!- %d (errors: %e) -!'
+zstyle ':completion:*:*:*:*:descriptions' format '-- %D %d --'
+zstyle ':completion:*:*:*:*:messages' format '-- %d --'
+zstyle ':completion:*:*:*:*:warnings' format '-- no matches found --'
 zstyle ':completion:*:default' list-prompt '%S%M matches%s'
-# Colors for files and directory
-zstyle ':completion:*:*:*:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # Preferred order of autocomplete groups
 zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions commands

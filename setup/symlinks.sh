@@ -8,8 +8,7 @@ case "${1:-}" in
   --dry-run)
     DRY_RUN=true
     ;;
-  "")
-    ;;
+  "") ;;
   *)
     echo "Usage: $0 [--dry-run]" >&2
     exit 1
@@ -256,7 +255,7 @@ install_extras() {
     mkdir -p "$HOME/.ssh"
     chmod 700 "$HOME/.ssh"
   fi
-  
+
   symlink_file "$TILDE_DIR/.ssh/config" "$HOME/.ssh/config"
 
   if [ "$DRY_RUN" = false ] && [ ! -d "/usr/local/bin" ]; then

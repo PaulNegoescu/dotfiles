@@ -2,8 +2,7 @@
 
 My personal dotfiles for configuring macOS with Zsh and Homebrew.
 
-> [!WARNING]  
-> I recommend forking this repository to create your own set of dotfiles.
+> [!WARNING] I recommend forking this repository to create your own set of dotfiles.
 
 ## Requirements
 
@@ -13,7 +12,6 @@ My personal dotfiles for configuring macOS with Zsh and Homebrew.
 
 ## What's in there?
 
-- Custom color scheme: [Squirrelsong](colors/).
 - Handy [CLI scripts](bin/).
 - Coding agents [config automation](agents/).
 - [Custom zsh theme](tilde/.starship.toml) with Git status, etc. using [Starship](https://starship.rs/).
@@ -62,8 +60,7 @@ cd ~/dotfiles
 
 To automate the setup of your dotfiles on a new machine, use the [setup](./setup.sh) script.
 
-> [!CAUTION]  
-> Use at your own risk!
+> [!CAUTION] Use at your own risk!
 
 ```bash
 git clone git@github.com:PaulNegoescu/dotfiles.git ~/dotfiles
@@ -78,12 +75,6 @@ This will install all required dotfiles in your home directory as symlinks. Ever
 
 ```bash
 set-defaults
-```
-
-### Install colors themes
-
-```bash
-sync-color-themes
 ```
 
 ## Local customizations
@@ -102,8 +93,7 @@ If this file exists, it will be automatically included after the public SSH host
 
 If this file exists, it will be automatically included after the configurations from `~/.gitconfig` allowing its content to overwrite or add to the existing `git` configurations.
 
-> [!TIP]  
-> Use `~/.gitconfig.local` to store sensitive information such as the `git` user credentials for individual repositories.
+> [!TIP] Use `~/.gitconfig.local` to store sensitive information such as the `git` user credentials for individual repositories.
 
 ## Updating
 

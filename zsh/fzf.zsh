@@ -18,19 +18,15 @@ export FZF_CTRL_R_OPTS="
   --preview 'echo {}' --preview-window down:3:hidden:wrap
   --bind 'ctrl-/:toggle-preview'
   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
-  --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
 
 export FZF_COMPLETION_TRIGGER='**'
 export FZF_COMPLETION_OPTS='--border --info=inline'
 
 # https://vitormv.github.io/fzf-themes/
-# Load theme
-source "$DOTFILES/colors/fzf-squirrelsong-dark-dp.sh"
 export FZF_DEFAULT_OPTS="--height 60% \
 --border rounded \
 --layout reverse \
---color '$FZF_COLORS' \
 --prompt '▶ ' \
 --pointer ▪︎ \
 --marker '✔ ' \

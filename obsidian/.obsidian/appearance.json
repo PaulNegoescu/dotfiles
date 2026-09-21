@@ -1,14 +1,9 @@
 {
   "textFontFamily": "Iosevka Custom",
-  "cssTheme": "Squirrelsong",
   "baseFontSize": 19,
   "monospaceFontFamily": "MonoLisa",
   "showRibbon": false,
-  "accentColor": "#806f9b",
   "interfaceFontFamily": "SF Pro",
   "showViewHeader": true,
-  "enabledCssSnippets": [
-    "custom"
-  ],
   "theme": "system"
 }
