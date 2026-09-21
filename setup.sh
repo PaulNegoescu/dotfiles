@@ -8,7 +8,8 @@
 
 set -euo pipefail
 
-cd "$(dirname $0)"
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$DOTFILES_DIR"
 
 red=$(tput setaf 1)
 green=$(tput setaf 2)
@@ -69,24 +70,24 @@ echo
 
 # Install Homebrew and packages/apps
 title "🫖 Setting up Homebrew…"
-$HOME/dotfiles/setup/brew.sh
+"$DOTFILES_DIR/setup/brew.sh"
 echo
 
 # Setup Zsh and register it as a default shell
 title "🐚 Setting up Zsh…"
-$HOME/dotfiles/setup/zsh.sh
+"$DOTFILES_DIR/setup/zsh.sh"
 echo
 
 # Install Xcode, GitHub CLI & Node.js packages etc.
 title "🚀 Setting up extra tools…"
-$HOME/dotfiles/setup/misc.sh
+"$DOTFILES_DIR/setup/misc.sh"
 echo
 
 # Install dotfiles symlinks
 title "🍤 Setting up symlinks…"
-DOTFILES_DIR="$HOME/dotfiles" $HOME/dotfiles/setup/symlinks.sh
+DOTFILES_DIR="$DOTFILES_DIR" "$DOTFILES_DIR/setup/symlinks.sh"
 
 echo
 echo "🦏 ${green}All done! Open a new terminal for the changes to take effect or run: source ~/.zshrc.${reset}"
 
-$HOME/dotfiles/bin/nyan
+"$DOTFILES_DIR/bin/nyan"

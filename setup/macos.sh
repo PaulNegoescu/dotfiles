@@ -9,9 +9,6 @@ else
   exit 0
 fi
 
-COMPUTERNAME='Nick M1 Air'
-LOCALHOSTNAME='nickmac.air'
-
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
@@ -29,12 +26,6 @@ done 2> /dev/null &
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
-
-# Set computer name (as done via System Preferences → Sharing)
-#sudo scutil --set ComputerName $COMPUTERNAME
-#sudo scutil --set HostName $COMPUTERNAME
-#sudo scutil --set LocalHostName $LOCALHOSTNAME
-#sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $LOCALHOSTNAME
 
 # Reduce startup sound volume
 sudo nvram SystemAudioVolume="%80"

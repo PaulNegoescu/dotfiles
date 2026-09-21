@@ -19,7 +19,7 @@ esac
 DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "$0")/.." && pwd)}"
 TILDE_DIR="$DOTFILES_DIR/tilde"
 
-EXCLUDE_FILES=(".DS_Store" "Brewfile.lock.json" "README.md" ".codex" ".ssh")
+EXCLUDE_FILES=(".DS_Store" "Brewfile.lock.json" "README.md" ".ssh")
 
 indent() {
   sed 's/^/  /'
@@ -248,6 +248,9 @@ install_extras() {
   local backup_all=false
   local skip_all=false
 
+  # Stable path for configs, regardless of where the repository is cloned
+  symlink_file "$DOTFILES_DIR" "$HOME/.dotfiles"
+
   # Link only SSH configuration; preserve keys and other SSH files
   if [ "$DRY_RUN" = false ]; then
     mkdir -p "$HOME/.ssh"
@@ -271,37 +274,25 @@ install_extras() {
   }
   # Enable settings sync from dotfiles
   vscode_user_folder="$HOME/Library/Application Support/Code/User"
-  symlink_file "$DOTFILES_DIR/vscode/User" "$vscode_user_folder"
 
-  # GPG
-  symlink_file "$DOTFILES_DIR/gpg/gpg-agent.conf" "$HOME/.gnupg/gpg-agent.conf"
+  symlink_file \
+    "$DOTFILES_DIR/vscode/User/settings.json" \
+    "$vscode_user_folder/settings.json"
+
+  symlink_file \
+    "$DOTFILES_DIR/vscode/User/keybindings.json" \
+    "$vscode_user_folder/keybindings.json"
+
+  symlink_file \
+    "$DOTFILES_DIR/vscode/User/tasks.json" \
+    "$vscode_user_folder/tasks.json"
+
+  symlink_file \
+    "$DOTFILES_DIR/vscode/User/snippets/global.code-snippets" \
+    "$vscode_user_folder/snippets/global.code-snippets"
 
   # Quick-Look plugins to enhance experience using file manager
   symlink_file "$DOTFILES_DIR/ql-plugins" "$HOME/Library/QuickLook"
-
-  #
-  # AI agents
-  #
-
-  AGENTS_DIR="$HOME/.agents"
-  AGENTS_SETUP_DIR="$DOTFILES_DIR/agents"
-  AGENTS_INSTRUCTIONS="$AGENTS_SETUP_DIR/instructions.md"
-
-  #
-  # Amp
-  #
-
-  # Base instructions
-  symlink_file "$AGENTS_INSTRUCTIONS" "$HOME/.config/amp/AGENTS.md"
-
-  #
-  # Codex
-  #
-
-  # Base instructions
-  symlink_file "$AGENTS_INSTRUCTIONS" "$HOME/.codex/AGENTS.md"
-  # Configuration
-  symlink_file "$DOTFILES_DIR/tilde/.codex/config.toml" "$HOME/.codex/config.toml"
 }
 
 install_dotfiles

@@ -27,8 +27,8 @@ if command -v fnm &> /dev/null; then
 fi
 
 # Custom dotfiles binaries
-prepend "$HOME/dotfiles/bin/lib"
-prepend "$HOME/dotfiles/bin"
+prepend "$DOTFILES/bin/lib"
+prepend "$DOTFILES/bin"
 
 # User binaries
 prepend "$HOME/bin"

@@ -13,8 +13,6 @@ brew "fzf" # Fuzzy file finder and filtering
 brew "gh" # GitHub CLI: interact with GitHub PRs, issues, repos
 brew "git" # Version control
 brew "gitleaks" # Audit git repos for secrets
-brew "gnupg" # Encryption and signing capabilities for data verification
-brew "pnpm" # Efficient Node.js package manager
 brew "prettyping" # Prettier and compact `ping`
 brew "python" # For Python work or node module builds
 brew "ripgrep" # Searching within files (better `grep`)
@@ -51,24 +49,30 @@ cask "visual-studio-code" # Main code editor
 cask "whatsapp" # Messenger
 
 # VS Code extensions
-vscode "bierner.markdown-preview-github-styles"
+vscode "angelluisalmaraz.project-colorize"
+vscode "beardedbear.beardedicons"
+vscode "bierner.markdown-mermaid"
+vscode "vscode "bierner.markdown-preview-github-styles""
+vscode "bradgashler.htmltagwrap"
 vscode "bradlc.vscode-tailwindcss"
 vscode "davidanson.vscode-markdownlint"
 vscode "dbaeumer.vscode-eslint"
+vscode "dotjoshjohnson.xml"
+vscode "dsznajder.es7-react-js-snippets"
 vscode "editorconfig.editorconfig"
 vscode "esbenp.prettier-vscode"
-vscode "github.vscode-pull-request-github"
-vscode "ms-azuretools.vscode-containers" # Auto-installed by Docker extension
-vscode "ms-azuretools.vscode-docker"
-vscode "naumovs.color-highlight"
+vscode "lokalise.i18n-ally"
+vscode "mgmcdermott.vscode-language-babel"
+vscode "mhutchie.git-graph"
+vscode "mikestead.dotenv"
+vscode "ms-azuretools.vscode-containers"
+vscode "ms-vscode-remote.remote-containers"
+vscode "ms-vscode.vscode-chat-customizations-evaluations"
 vscode "oxc.oxc-vscode"
+vscode "quicktype.quicktype"
 vscode "redhat.vscode-yaml"
-vscode "sapegin.icons-squirrelppuccinlight"
-vscode "sapegin.just-blame"
-vscode "sapegin.mini-markdown"
-vscode "sapegin.theme-squirrelsonglight"
-vscode "sapegin.todo-tomorrow"
-vscode "sleistner.vscode-fileutils"
 vscode "streetsidesoftware.code-spell-checker"
-vscode "tekumara.typos-vscode"
+vscode "tinkertrain.theme-panda"
 vscode "usernamehw.errorlens"
+vscode "vscode-icons-team.vscode-icons"
+vscode "yoavbls.pretty-ts-errors"

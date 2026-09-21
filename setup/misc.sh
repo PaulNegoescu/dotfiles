@@ -68,8 +68,16 @@ eval "$(fnm env --shell bash)"
 fnm install --lts --use
 fnm default "$(fnm current)"
 
+# Corepack is no longer bundled with Node.js 25+
+npm install --global corepack@latest
+corepack enable
+
+# Provide pnpm outside projects; projects can select an exact version
+# through their packageManager field
+corepack install --global pnpm@latest
+
 # Node.js global config
-info "🚀 Installing Node.js dependencies…"
+info "🚀 Configuring Node.js tooling..."
 # Less verbose output
 npm config set loglevel warn
 # Disable funding messages

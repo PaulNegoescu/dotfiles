@@ -26,7 +26,7 @@ export FZF_COMPLETION_OPTS='--border --info=inline'
 
 # https://vitormv.github.io/fzf-themes/
 # Load theme
-source ~/dotfiles/colors/fzf-squirrelsong-dark-dp.sh
+source "$DOTFILES/colors/fzf-squirrelsong-dark-dp.sh"
 export FZF_DEFAULT_OPTS="--height 60% \
 --border rounded \
 --layout reverse \

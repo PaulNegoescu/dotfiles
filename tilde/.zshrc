@@ -1,13 +1,15 @@
+export DOTFILES="$HOME/.dotfiles"
+
 # Load configs
-source $HOME/dotfiles/zsh/path.zsh
-source $HOME/dotfiles/zsh/env.zsh
-source $HOME/dotfiles/zsh/options.zsh
-source $HOME/dotfiles/zsh/aliases.zsh
-source $HOME/dotfiles/zsh/completion.zsh
-source $HOME/dotfiles/zsh/key-bindings.zsh
+source "$DOTFILES/zsh/path.zsh"
+source "$DOTFILES/zsh/env.zsh"
+source "$DOTFILES/zsh/options.zsh"
+source "$DOTFILES/zsh/aliases.zsh"
+source "$DOTFILES/zsh/completion.zsh"
+source "$DOTFILES/zsh/key-bindings.zsh"
 
 # Load plugins
-source $HOME/dotfiles/zsh/plugins/zsh-shift-select.plugin.zsh
+source "$DOTFILES/zsh/plugins/zsh-shift-select.plugin.zsh"
 
 # Set the window title nicely no matter where you are
 DISABLE_AUTO_TITLE="true"
@@ -21,7 +23,7 @@ _set_terminal_title() {
 # Call the function before displaying the prompt
 precmd_functions+=(_set_terminal_title)
 
-source $HOME/dotfiles/zsh/init.zsh
+source "$DOTFILES/zsh/init.zsh"
 
 # Allow local (private) overrides if present (PATH additions, work-specific aliases, etc.)
 [ -f ~/.zsh.local ] && source ~/.zsh.local
