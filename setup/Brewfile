@@ -32,27 +32,31 @@ brew "zsh-fast-syntax-highlighting" # Feature-rich syntax highlighting for Zsh
 cask "font-meslo-lg-nerd-font"
 
 # GUI apps
-cask "cmux" # Multitasking terminal to orchestrate agents
-cask "dash" # API documentation reader
-cask "ghostty" # Better terminal emulator for regular operating
-cask "helium-browser" # Privacy-first browser for testing
-cask "hiddenbar" # Manage menu bar icons
-cask "keka" # File archiver and extractor
+cask "alt-tab" # Windows-style application switcher
+cask "cmux" # Terminal designed for parallel coding-agent sessions
+cask "dash" # Offline API documentation
+cask "ghostty" # Main terminal emulator
+cask "helium-browser" # Browser for testing
+cask "hiddenbar" # Menu bar management
+cask "keka" # File archiver
+cask "legcord" # Discord client
 cask "marta" # File manager
-cask "obsidian" # Main note taking app
+cask "obsidian" # Notes
 cask "optimage" # Image optimization
-cask "orbstack" # Docker alternative
-cask "pearcleaner" # Clean up macOS from junk and apps leftovers
-cask "raycast" # All-in-one app / tasks launcher
-cask "signal" # Messenger
-cask "visual-studio-code" # Main code editor
-cask "whatsapp" # Messenger
+cask "orbstack" # Containers and Linux machines
+cask "pearcleaner" # Application uninstaller
+cask "raycast" # Launcher and automation
+cask "signal" # Secure messaging
+cask "spotify" # Music
+cask "visual-studio-code" # Main editor
+cask "whatsapp" # Messaging
+cask "zoom" # Video meetings
 
 # VS Code extensions
 vscode "angelluisalmaraz.project-colorize"
 vscode "beardedbear.beardedicons"
 vscode "bierner.markdown-mermaid"
-vscode "vscode "bierner.markdown-preview-github-styles""
+vscode "bierner.markdown-preview-github-styles"
 vscode "bradgashler.htmltagwrap"
 vscode "bradlc.vscode-tailwindcss"
 vscode "davidanson.vscode-markdownlint"
