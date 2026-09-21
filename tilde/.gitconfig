@@ -21,7 +21,7 @@
 
 [core]
   editor = code --wait
-  pager = hunk pager
+  pager = delta
   autocrlf = input
   safecrlf = warn
   excludesFile = ~/.gitignore
@@ -268,7 +268,17 @@
   # Push up the branch and set upstream for the current branch
   publish      = "!git push --set-upstream origin $(git branch --show-current)"
 
+  hdiff = -c core.pager=\"hunk pager\" diff
+  hshow = -c core.pager=\"hunk pager\" show
+
 # Include local/private config if relevant (credential helper, SSH, user identity)
 
 [include]
   path = ~/.gitconfig.local
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true
+  dark = true
