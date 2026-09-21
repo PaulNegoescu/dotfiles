@@ -92,8 +92,6 @@
 
   // Improved tab title rendering
   "workbench.editor.customLabels.patterns": {
-    "**/routes/**/+page.svelte": "${dirname(1)}/${dirname}",
-    "**/routes/**/+page.server.ts": "/${dirname} [server]",
     "**/app/**/page.tsx": "${dirname} — Page",
     "**/app/**/layout.tsx": "${dirname} — Layout",
     "**/components/**/index.tsx": "${dirname} — Component",
@@ -347,10 +345,7 @@
   // Only run Prettier in projects that are set up to use it
   "prettier.requireConfig": true,
 
-  "svelte.plugin.svelte.format.config.printWidth": 80,
-
   "eslint.validate": [
-    "vue",
     "javascript",
     "javascriptreact",
     "typescript",

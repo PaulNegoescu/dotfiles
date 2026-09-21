@@ -280,10 +280,6 @@ install_extras() {
     "$vscode_user_folder/settings.json"
 
   symlink_file \
-    "$DOTFILES_DIR/vscode/User/keybindings.json" \
-    "$vscode_user_folder/keybindings.json"
-
-  symlink_file \
     "$DOTFILES_DIR/vscode/User/tasks.json" \
     "$vscode_user_folder/tasks.json"
 
