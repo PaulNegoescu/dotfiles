@@ -2,31 +2,28 @@
 tap "manaflow-ai/cmux"
 
 # CLI tools
-brew "bat" # Output highlighting (better `cat`)
-brew "btop" # Performance and resource monitoring tool (better `top`)
-brew "eza" # Listing files with info (better `ls`)
-brew "fastfetch" # Show pretty system info
-brew "fd" # Find entries in your filesystem (better `find`)
+brew "bat" # Syntax-highlighted cat
+brew "btop" # Process and resource monitor
+brew "eza" # Modern ls
+brew "fd" # Modern find
 brew "fnm" # Node.js version manager
-brew "fzf" # Fuzzy file finder and filtering
-brew "gh" # GitHub CLI: interact with GitHub PRs, issues, repos
-brew "git" # Version control
-brew "git-delta" # Syntax-highlighting Git pager
-brew "gitleaks" # Audit git repos for secrets
+brew "fzf" # Fuzzy finder
+brew "gh" # GitHub CLI
+brew "git" # Current Git release
+brew "git-delta" # Default Git pager
+brew "gitleaks" # Scan repositories for secrets
 brew "hunk" # Interactive changeset reviewer
-brew "prettyping" # Prettier and compact `ping`
-brew "python" # For Python work or node module builds
-brew "ripgrep" # Searching within files (better `grep`)
-brew "shellcheck" # Shell scripts linting
-brew "sops" # Secrets manager
-brew "starship" # Prompt manager
-brew "tlrc" # Community-maintained docs (better `man`)
-brew "trash-cli", link: true # Record and restore removed files (better `rm`)
-brew "webp" # More efficient web images
-brew "zoxide" # Convenient and magical navigation (better `cd`)
-brew "zsh" # A shell of choice
-brew "zsh-autosuggestions" # Fish-like autosuggestions for Zsh
-brew "zsh-fast-syntax-highlighting" # Feature-rich syntax highlighting for Zsh
+brew "python" # Scripts and native Node module builds
+brew "ripgrep" # Fast recursive search
+brew "shellcheck" # Shell script validation
+brew "starship" # Shell prompt
+brew "tlrc" # tldr client used by the repository helpers
+brew "trash-cli", link: true # Recoverable file deletion
+brew "webp" # Required by bin/optimize-image
+brew "zoxide" # Directory navigation
+brew "zsh" # Current Zsh release
+brew "zsh-autosuggestions"
+brew "zsh-fast-syntax-highlighting"
 
 # Fonts
 cask "font-meslo-lg-nerd-font"

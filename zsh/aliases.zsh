@@ -47,10 +47,7 @@ alias e="$EDITOR"
 alias c="code ."
 alias cc="code ."
 alias where="which"
-alias sops="EDITOR=\"code --wait\" sops"
 alias python="python3"
-# List the long form of the GPG keys for which you have both a public and private key
-alias gpgkeys="gpg --list-secret-keys --keyid-format=long"
 
 # Node Package Manager
 alias pn="pnpm"
@@ -93,9 +90,6 @@ command_exists btop && alias top="btop"
 
 # Tlrc: https://github.com/tldr-pages/tlrc
 command_exists tldr && alias man="tldr --config ~/.tlrc.toml"
-
-# Prettyping: https://denilson.sa.nom.br/prettyping/
-command_exists prettyping && alias ping="prettyping --nolegend"
 
 # Download file and save it with the name of the remote file in the current working directory
 # Usage: get <URL>

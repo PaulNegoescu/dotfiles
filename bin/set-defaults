@@ -11,4 +11,5 @@
 # License: MIT
 # https://github.com/nicksp/dotfiles
 
-exec $DOTFILES/setup/macos.sh
+DOTFILES_DIR="${DOTFILES:-$HOME/.dotfiles}"
+exec "$DOTFILES_DIR/setup/macos.sh" "$@"
