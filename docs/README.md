@@ -29,9 +29,8 @@
 | `..` `...` `....` | Navigate to 1/2/3 parent directories up |
 | `-` | Navigate to a previous working directory |
 | `library` | Navigate to the user `~/Library` directory |
-| `proj` | Navigate to the workspace projects directory (`$WORKSPACE`) |
-| `forks` | Navigate to the forks directory (`$WORKSPACE/forks`) |
-| `i` | Navigate to the open-source projects directory (`$WORKSPACE/oss`) |
+| `proj` `work` | Navigate to the workspace directory (`~/work`) |
+| `personal` | Navigate to the personal projects directory (`~/work/personal`) |
 
 ## Zsh config
 
@@ -45,8 +44,8 @@
 | Command | Description |
 | --- | --- |
 | `+x {{file}}` | Make a file executable |
-| `o {{file_or_dir}}` | Open Finder |
-| `oo` | Open current directory in Finder |
+| `o {{file_or_dir}}` | Open a file or directory with its default macOS application |
+| `oo` | Open current directory in Marta |
 | `e {{file}}` | Open the specified file in the default editor |
 | `c` `cc` | Open current directory in Visual Studio Code |
 | `d {{args}}` | Run the Docker CLI |
@@ -79,13 +78,19 @@
 | --- | --- |
 | `gitroot` `gr` | Navigate to the root directory of a Git repository |
 | `git clone {{repo_url}}` `g clone {{repo_url}}` | Clone Git repository, install dependencies, and navigate to created directory |
-| `gs` | Show the state of the working directory and staging area of a Git repository, or list directory contents outside a Git repo |
+| `gst` `gs` | Show the state of the working directory and staging area of a Git repository, or list directory contents outside a Git repo |
 | `gaa` | Stage all changes in the working directory |
 | `gcm` | Create a commit with the specified message |
 | `gd` | Show the differences (`diff`) between the current state of files in the working directory and the last committed state |
 | `gdc` | Show the differences (`diff`) between staged changes and the last commit |
-| `gl` | Display compact and readable log |
-| `gpuf` | Push with `--force-with-lease` |
+| `git l` | Display the compact, readable Git log |
+| `gl` | Pull the current branch |
+| `gp` | Push the current branch |
+| `gpu` | Push the current branch to `origin` and set its upstream |
+| `gpf` | Push with `--force-with-lease` |
+| `go {{branch}}` | Switch branches |
+| `god` | Switch to `develop` and pull its latest changes |
+| `gmd` | Fetch and rebase the current branch onto `origin/develop` |
 | `br` | Switch branches, create a new local branch if it doesn’t exist, or delete local branches. Automatically sets up and maintains remote branch tracking so you can just type `git pull` instead of `git pull origin newbranch`. If no argument is specified, will list recent local branches; use -r to list recent remote branches. |
 | `pull` | Pull remote changes using rebase while safely stashing and restoring local changes. Automatically updates submodules and reinstalls dependencies when lockfiles or package manifests change |
 | `push` | Push local changes to the tracked remote branch. Intelligently maintains upstream tracking so you can push without specifying a remote or branch. Any extra arguments will be passed through to `git push`, for example `push -f` |
