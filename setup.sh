@@ -62,6 +62,36 @@ title() {
   printf '\n%s==> %s%s\n\n' "$bold" "$1" "$reset"
 }
 
+print_centered_block() {
+  local columns=80
+  local max_width=0
+  local line
+  local padding
+  local -a lines=()
+
+  if [ -t 1 ] && command -v tput > /dev/null 2>&1; then
+    columns=$(tput cols 2> /dev/null || printf '80')
+  fi
+
+  while IFS= read -r line; do
+    lines[${#lines[@]}]="$line"
+
+    if [ "${#line}" -gt "$max_width" ]; then
+      max_width=${#line}
+    fi
+  done
+
+  padding=$(((columns - max_width) / 2))
+
+  if [ "$padding" -lt 0 ]; then
+    padding=0
+  fi
+
+  for line in "${lines[@]}"; do
+    printf '%*s%s\n' "$padding" '' "$line"
+  done
+}
+
 skipped() {
   printf '%sSkipped:%s %s\n' "$yellow" "$reset" "$1"
 }
@@ -124,19 +154,43 @@ enable_touch_id() {
   echo "Touch ID for sudo has been enabled."
 }
 
-echo "${yellow}
-          _ ._  _ , _ ._
-        (_ ' ( \`  )_  .__)
-      ( (  (    )   \`)  ) _)
-     (__ (_   (_ . _) _) ,__)
-           ~~\ ' . /~~
-         ,::: ;   ; :::,
-        ':::::::::::::::'
- ____________/_ __ \____________
-|                               |
-|  Welcome to Paul's dotfiles   |
-|_______________________________|
-${reset}"
+printf '%b\n' "${yellow}"
+print_centered_block << 'EOS'
+Welcome to Paul's dotfiles
+EOS
+
+printf '\n'
+print_centered_block << 'EOS'
+               oooooooooooooooooooooooooooooooooooooooooooooo
+      ooo$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ooo
+     $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    o$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$o
+    $$$$$   $$$"    "$$$$$"    "$     $     $  "$  $$$$$"    "$  "$  $$$
+    $$$$"   "$$  $$oo$$$$$  $$oo$  $$$$  $$$$   "  $$$$$  $$  $   "  $$$
+   o$$$$  $  $$o    "$$$$$o    "$    $$     $      $$$$$  $$  $      $$$o
+   $$$$   o   $""$$  $$$$$""$$  $  $$$$  $$$$  o   $$$$$  $$  $  o   $$$$
+   $$$$  $$$  $o    o$$$$$o    o$     $     $  $o  $$$$$o    o$  $o  $$$$
+   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+   $$$$""""""""""""""""""""""""""""""""""""""$$$$$$$$$$$$""""""""""""$$$$
+   $$$$                                      "$$$$$$$$$$"           o$$$$
+   $$$$                                       "$$$$$$$$"           o$$$$$
+   $$$$                                        $$$$$$$$            $$$$$$
+   $$$$$$$$$$$$$           $$$$$$$$$            $$$$$$            $$$$$$$
+   $$$$$$$$$$$$$           $$$$$$$$$$            $$$$            $$$$$$$$
+   $$$$$$$$$$$$$           $$$$$$$$$$$           "$$"           $$$$$$$$$
+   $$$$$$$$$$$$$           $$$$$$$$$$$o           ""           o$$$$$$$$$
+   $$$$$$$$$$$$$           $$$$$$$$$$$$o                      o$$$$$$$$$$
+   $$$$$$$$$$$$$           $$$$$$$$$$$$$o                    o$$$$$$$$$$$
+   $$$$$$$$$$$$$           $$$$$$$$$$$$$$o                  o$$$$$$$$$$$$
+   "$$$$$$$$$$$$           $$$$$$$$$$$$$$$                  $$$$$$$$$$$$"
+    $$$$$$$$$$$$           $$$$$$$$$$$$$$$$                $$$$$$$$$$$$$
+    $$$$$$$$$$$$           $$$$$$$$$$$$$$$$$              $$$$$$$$$$$$$$
+    "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+     $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+      """$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"""
+               """"""""""""""""""""""""""""""""""""""""""""""
+EOS
+printf '%b\n' "${reset}"
 
 echo "Each step is optional. Existing files are preserved unless you explicitly"
 echo "choose to replace them during the symlink step."

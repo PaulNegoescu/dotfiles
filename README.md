@@ -86,6 +86,17 @@ Each component can also be run independently:
 ./setup/macos.sh
 ```
 
+## Validation
+
+Install the repository dependencies and run all formatting and shell checks:
+
+```bash
+pnpm install --frozen-lockfile
+pnpm check
+```
+
+The same validation runs automatically for pull requests and pushes to `main`.
+
 ## Extras
 
 ### Set macOS defaults
