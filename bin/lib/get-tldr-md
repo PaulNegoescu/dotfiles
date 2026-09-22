@@ -13,9 +13,10 @@
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-const homeDirectory = os.homedir() ?? process.env.HOME
-const DOTFILES_DIR = `${homeDirectory}/dotfiles`
+const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
+const DOTFILES_DIR = path.resolve(scriptDirectory, '../..')
 
 const BIN_DIR = `${DOTFILES_DIR}/bin`
 const DOCS_DIR = `${DOTFILES_DIR}/docs`

@@ -5,4 +5,4 @@ blockExoticSubdeps: true
 # Prevent installation of a package if its trust level has decreased compared to previous releases
 trustPolicy: no-downgrade
 allowBuilds:
-  sharp: set this to true or false
+  sharp: true
