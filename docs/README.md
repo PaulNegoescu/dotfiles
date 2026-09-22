@@ -78,7 +78,7 @@
 | Command | Description |
 | --- | --- |
 | `gitroot` `gr` | Navigate to the root directory of a Git repository |
-| `git clone {{repo_url}}` `g clone {{repo_url}}` | Clone Git repository, install dependencies, and navigate to created directory |
+| `git clone {{repo_url}}` | Clone Git repository, install dependencies, and navigate to created directory |
 | `gst` `gs` | Show the state of the working directory and staging area of a Git repository, or list directory contents outside a Git repo |
 | `gaa` | Stage all changes in the working directory |
 | `gcm` | Create a commit with the specified message |
@@ -92,6 +92,7 @@
 | `go {{branch}}` | Switch branches |
 | `god` | Switch to `develop` and pull its latest changes |
 | `gmd` | Fetch and rebase the current branch onto `origin/develop` |
+| `gfr` | Fetch and rebase current branch onto the remote tracking branch |
 | `br` | Switch branches, create a new local branch if it doesn’t exist, or delete local branches. Automatically sets up and maintains remote branch tracking so you can just type `git pull` instead of `git pull origin newbranch`. If no argument is specified, will list recent local branches; use -r to list recent remote branches. |
 | `pull` | Pull remote changes using rebase while safely stashing and restoring local changes. Automatically updates submodules and reinstalls dependencies when lockfiles or package manifests change |
 | `push` | Push local changes to the tracked remote branch. Intelligently maintains upstream tracking so you can push without specifying a remote or branch. Any extra arguments will be passed through to `git push`, for example `push -f` |

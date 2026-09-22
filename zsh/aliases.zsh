@@ -113,6 +113,7 @@ alias gpf="git push --force-with-lease"
 alias go="git switch"
 alias god="git switch develop && git pull"
 alias gmd="git fetch && git rebase origin/develop"
+alias gfr="git fetch && git rebase origin/$(git rev-parse --abbrev-ref HEAD)"
 
 # Preview and open files in the current dir
 command_exists fzf && command_exists bat && alias preview="fzf --preview 'bat --style=numbers --color=always {}'"
