@@ -7,7 +7,7 @@
 
 - Browser, Netscape: browsers (Firefox, Helium, etc.)
 - Code: code editors (Visual Studio Code, Zed, etc.)
-- Floppy: file managers (Nimble Commander, Marta, etc.)
+- Floppy: file managers (Marta, Finder, etc.)
 - Fork: git clients (GitHub Desktop, Sublime Merge, etc.)
 - Mail: mail clients (Mimestream, Fastmail, etc.)
 - Sunset: note taking apps (Obsidian, Notion, etc.)

@@ -17,7 +17,6 @@
 | bat | `cat {{file}}` | Show file contents with syntax highlighting (replaces `cat`) |
 | btop | `top` | Open the interactive system resource monitor (replaces `top`) |
 | tldr | `man {{command}}` | Show simplified, example-driven help for a command (replaces `man`) |
-| prettyping | `ping {{host}}` | Ping a host with nicer, compact output (replaces `ping`) |
 | trash | `rm {{file}}` | Move files to the macOS Trash instead of permanently deleting them (replaces `rm`) |
 | zoxide | `cd {{part_of_dir_path}}` | Magic opener for directories based on the Zsh command history via `zoxide`. More information: <https://github.com/ajeetdsouza/zoxide>. |
 | — | `Ctrl+R` | Fuzzy find in your command history. |
@@ -52,14 +51,9 @@
 | `c` `cc` | Open current directory in Visual Studio Code |
 | `d {{args}}` | Run the Docker CLI |
 | `dc {{args}}` | Run Docker Compose |
-| `sops {{file}}` | Edit an encrypted secrets file with `sops` using VS Code as the editor |
 | `where {{command}}` | Locate a command (alias for `which`) |
 | `python` | Run Python 3 (alias for `python3`) |
-| `t` | Open current directory in Github Desktop |
-| `ff` | Open current directory in Nimble Commander |
-| `lg` | Run [`lazygit`](https://github.com/jesseduffield/lazygit) in terminal |
-| `ld` | Run [`lazydocker`](https://github.com/jesseduffield/lazydocker) in terminal |
-| `gpgkeys` | List all secret GPG keys with long key ID format |
+| `ff` | Open current directory in Marta |
 
 ## Node & package management
 
@@ -67,10 +61,7 @@
 | --- | --- |
 | `pn {{args}}` | Run `pnpm` |
 | `nvm {{args}}` | Run the `fnm` Node version manager (kept as `nvm` for muscle memory) |
-| `nio` | Install dependencies, preferring the offline cache. More information: <https://github.com/antfu/ni>. |
-| `ns` `nd` `nb` `nbw` `nt` `ntw` `ntc` `nf` | Run common package scripts through `nr` (`@antfu/ni`): `ns` → `start`, `nd` → `dev`, `nb` → `build`, `nbw` → `build --watch`, `nt` → `test`, `ntw` → `test --watch`, `ntc` → `typecheck`, `nf` → `format` |
-| `lint` `lintf` | Run the project linter (optionally with `--fix`) |
-| `release` `re` | Run the project release script |
+| `npmplease` | Remove `node_modules` and reinstall with the package manager selected by the project lockfile |
 
 ## Files & utilities
 

@@ -15,7 +15,7 @@ sed "s/DATE/$(date +%Y)/g" <<'LICENSE'
 
 MIT License
 
-Copyright (c) 2016-DATE Nick Plekhanov <https://plekhanov.me>
+Copyright (c) DATE Paul Negoescu <https://github.com/PaulNegoescu>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# One-liner to solve npm issues when package management is giving trouble.
+# Reinstall Node.js dependencies without deleting the project's lockfile.
 #
 # - Clean up local Node packages installation:
 #
@@ -11,4 +11,29 @@
 # License: MIT
 # https://github.com/nicksp/dotfiles
 
-rm -rf ./node_modules/ && rm -f package-lock.json && nio
+set -euo pipefail
+
+if [ ! -f package.json ]; then
+  echo "No package.json found in the current directory." >&2
+  exit 1
+fi
+
+rm -rf ./node_modules
+
+if [ -f pnpm-lock.yaml ]; then
+  command -v pnpm > /dev/null || {
+    echo "pnpm is required for this project." >&2
+    exit 1
+  }
+  pnpm install --frozen-lockfile
+elif [ -f package-lock.json ]; then
+  npm ci
+elif [ -f yarn.lock ]; then
+  command -v corepack > /dev/null || {
+    echo "Corepack is required for this Yarn project." >&2
+    exit 1
+  }
+  corepack yarn install
+else
+  npm install
+fi

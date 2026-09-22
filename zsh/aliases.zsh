@@ -131,24 +131,27 @@ take() {
 
 function git() {
   # Clone a GitHub repo and cd into the created directory
-  if [ $1 = "clone" ]; then
-    command git clone "${@:2}"
+  if [[ "${1:-}" == "clone" ]]; then
+    command git "$@" || return
 
-    if [ "$3" ]; then
-      cd "$3"
+    local repo_dir
+    if [[ -n "${3:-}" ]]; then
+      repo_dir="$3"
     else
-      cd $(basename "$2" .git)
+      repo_dir="$(basename "$2" .git)"
     fi
 
-    if [[ -r "./yarn.lock" ]]; then
-      yarn
-    elif [[ -r "./pnpm-lock.yaml" ]]; then
+    cd "$repo_dir" || return
+
+    if [[ -r "./pnpm-lock.yaml" ]]; then
       pnpm install
     elif [[ -r "./package-lock.json" ]]; then
-      npm install
+      npm ci
+    elif [[ -r "./yarn.lock" ]]; then
+      corepack yarn install
     fi
   else
-    command git $@
+    command git "$@"
   fi
 }
 
