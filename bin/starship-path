@@ -1,0 +1,38 @@
+#!/bin/bash
+
+set -euo pipefail
+
+max_length=${STARSHIP_PATH_MAX_LENGTH:-54}
+
+case "$max_length" in
+  "" | *[!0-9]*) max_length=54 ;;
+esac
+
+if [ "$max_length" -lt 12 ]; then
+  max_length=12
+fi
+
+display_path=$PWD
+
+if [ "$display_path" = "$HOME" ]; then
+  display_path="~"
+elif [[ "$display_path" == "$HOME/"* ]]; then
+  display_path="~${display_path#"$HOME"}"
+fi
+
+path_length=${#display_path}
+
+if [ "$path_length" -le "$max_length" ]; then
+  printf '%s\n' "$display_path"
+  exit
+fi
+
+# Keep equal portions of the beginning and end around a single ellipsis.
+visible_length=$((max_length - 1))
+left_length=$((visible_length / 2))
+right_length=$((visible_length - left_length))
+right_offset=$((path_length - right_length))
+
+printf '%s…%s\n' \
+  "${display_path:0:left_length}" \
+  "${display_path:right_offset}"

@@ -1,14 +1,42 @@
 # https://ghostty.org/docs/config/reference
 
 font-family = MonoLisa
-font-style = MonoLisa
+font-family = MesloLGS NF
 font-size = 17
+
+# Panda Syntax
+background = #242526
+foreground = #E6E6E6
+cursor-color = #FF75B5
+cursor-text = #242526
+selection-background = #3E4250
+selection-foreground = #E6E6E6
+
+# ANSI colors
+palette = 0=#242526
+palette = 1=#FF4B82
+palette = 2=#19F9D8
+palette = 3=#FFCC95
+palette = 4=#45A9F9
+palette = 5=#B084EB
+palette = 6=#6FC1FF
+palette = 7=#E6E6E6
+palette = 8=#676B79
+palette = 9=#FF2C6D
+palette = 10=#6FE7D2
+palette = 11=#FFB86C
+palette = 12=#6FC1FF
+palette = 13=#FF75B5
+palette = 14=#19F9D8
+palette = 15=#FFFFFF
 
 macos-titlebar-style = tabs
 
 # Bar non-blinking cursor
 shell-integration = zsh
 shell-integration-features = no-cursor
+cursor-style = bar
+cursor-style-blink = false
 mouse-hide-while-typing = true
 
 window-save-state = always
