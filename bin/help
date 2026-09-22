@@ -22,7 +22,9 @@ DOTFILES_DIR="$(pwd)"
 config="$DOTFILES_DIR/tilde/.tlrc.toml"
 
 render_markdown() {
-  if command -v bat > /dev/null; then
+  if command -v glow > /dev/null; then
+    glow "$1"
+  elif command -v bat > /dev/null; then
     bat --language=markdown --paging=never --style=plain "$1"
   else
     command cat "$1"

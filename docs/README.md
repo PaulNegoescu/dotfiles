@@ -16,6 +16,7 @@
 | eza | `lta` | Get a nested listing with hidden files |
 | bat | `cat {{file}}` | Show file contents with syntax highlighting (replaces `cat`) |
 | btop | `top` | Open the interactive system resource monitor (replaces `top`) |
+| glow | `glow {{file}}` | Render Markdown documents in the terminal |
 | tldr | `man {{command}}` | Show simplified, example-driven help for a command (replaces `man`) |
 | trash | `rm {{file}}` | Move files to the macOS Trash instead of permanently deleting them (replaces `rm`) |
 | zoxide | `cd {{part_of_dir_path}}` | Magic opener for directories based on the Zsh command history via `zoxide`. More information: <https://github.com/ajeetdsouza/zoxide>. |
