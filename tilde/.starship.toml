@@ -23,8 +23,7 @@ description = "Current directory with middle truncation"
 
 [custom.git]
 command = '$HOME/.dotfiles/bin/starship-git'
-when = true
-require_repo = true
+when = 'git rev-parse --is-inside-work-tree >/dev/null 2>&1'
 shell = ["/bin/sh"]
 format = "[$output]($style) "
 style = "bold #B084EB"
