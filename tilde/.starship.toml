@@ -36,5 +36,6 @@ format = '[\($state( $progress_current/$progress_total)\)]($style) '
 style = "bold #FFB86C"
 
 [character]
-success_symbol = "[λ](bold #19F9D8)"
-error_symbol = "[λ](bold #FF4B82)"
+# Nerd Fonts nf-fa-angle_right \uf105
+success_symbol = "[](bold #19F9D8)"
+error_symbol = "[](bold #FF4B82)"
