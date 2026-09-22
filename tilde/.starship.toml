@@ -15,7 +15,6 @@ format = """\
   """
 
 [directory]
-style = "bold white"
 repo_root_style = "bold"
 read_only = "" # Nerd Fonts nf-fa-lock \uf023
 
@@ -29,10 +28,3 @@ behind     = "⇣${count} "
 # Nerd Fonts nf-fa-angle_right \f105
 success_symbol = "[](bold green)"
 error_symbol = "[](bold red)"
-
-[custom.git_simple]
-command = "starship-git-simple"
-require_repo = true
-when = true
-ignore_timeout = true
-style = ""

@@ -1,5 +1,4 @@
 {
-  "amp.terminal.theme": "squirrelsong-dark-dp",
   // Disable adding Amp-Thread trailer in git commits
   "amp.git.commit.ampThread.enabled": false,
   // Disable adding Amp as co-author in git commits

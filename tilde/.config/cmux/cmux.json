@@ -2,7 +2,6 @@
   "$schema": "https://raw.githubusercontent.com/manaflow-ai/cmux/main/web/data/cmux.schema.json",
   "app": {
     "appearance": "system",
-    "appIcon": "dark",
     "commandPaletteSearchesAllSurfaces": false,
     "confirmQuit": "always",
     "focusPaneOnFirstClick": false,
@@ -186,13 +185,6 @@
     "watchGitStatus": true,
     "wrapWorkspaceTitles": false
   },
-  "sidebarAppearance": {
-    "darkModeTintColor": null,
-    "lightModeTintColor": null,
-    "matchTerminalBackground": true,
-    "tintColor": "#000000",
-    "tintOpacity": 0.17999999999999999
-  },
   "terminal": {
     "agentHibernation": {
       "enabled": false,
@@ -206,22 +198,6 @@
     "showScrollBar": true,
     "showTextBoxOnNewTerminals": false,
     "textBoxMaxLines": 10
-  },
-  "workspaceColors": {
-    "colors": {
-      "Blue": "#527b98",
-      "Gray": "#8c8792",
-      "Green": "#667e44",
-      "Magenta": "#806f9b",
-      "Orange": "#bf8240",
-      "Pink": "#e87da4",
-      "Red": "#c06159",
-      "Teal": "#468173",
-      "Yellow": "#b39119"
-    },
-    "indicatorStyle": "leftRail",
-    "notificationBadgeColor": "#ac9bc5",
-    "selectionColor": "#dbd7e0"
   },
   "workspaceGroups": {
     "newWorkspacePlacement": "afterCurrent"

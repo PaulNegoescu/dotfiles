@@ -19,7 +19,3 @@ RESET=$(tput sgr0)
 "$DOTFILES/bin/sync-apps-data"
 echo "✅ ${BOLD}Done${RESET}"
 echo
-
-"$DOTFILES/bin/sync-color-themes"
-echo "✅ ${BOLD}Done${RESET}"
-echo

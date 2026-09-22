@@ -26,9 +26,6 @@ fi
 # Make sure we’re working with the latest version of Homebrew and its formulae
 brew update
 
-# Upgrade outdated already-installed formulae
-brew upgrade
-
 # Install fonts, tools, apps & vscode extensions
 title "Installing software…"
 brew bundle --file=./setup/Brewfile | indent
@@ -54,7 +51,3 @@ echo "https://apps.apple.com/us/app/adguard-ad-blocker-for-safari/id1440147259?m
 echo "https://apps.apple.com/us/app/photomator-photo-editor/id1444636541"
 echo "https://apps.apple.com/us/app/klack/id6446206067?mt=12"
 echo ""
-
-# Remove outdated versions of formulae and casks from the cellar
-# Besides, this will run `brew autoremove` to remove all the hanging, no longer needed packages
-brew cleanup --prune=all

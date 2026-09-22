@@ -2,10 +2,23 @@
 
 set -euo pipefail
 
+DRY_RUN=false
+
+case "${1:-}" in
+  --dry-run)
+    DRY_RUN=true
+    ;;
+  "") ;;
+  *)
+    echo "Usage: $0 [--dry-run]" >&2
+    exit 1
+    ;;
+esac
+
 DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "$0")/.." && pwd)}"
 TILDE_DIR="$DOTFILES_DIR/tilde"
 
-EXCLUDE_FILES=(".DS_Store" "Brewfile.lock.json" "README.md" ".codex")
+EXCLUDE_FILES=(".DS_Store" "Brewfile.lock.json" "README.md" ".ssh")
 
 indent() {
   sed 's/^/  /'
@@ -32,19 +45,41 @@ skipped() {
   printf "\r\033[2K  [skipped]  $1\n"
 }
 
+preview() {
+  printf '  [dry-run] %s\n' "$1"
+}
+
 fail() {
   printf "\r\033[2K  [\033[0;31m✖\033[0m] $1\n"
   echo ''
-  exit
+  exit 1
 }
 
 symlink_file() {
   local src=$1 dst=$2 isHardLink=${3:-false}
 
-  local overwrite
-  local backup
-  local skip
-  local action
+  local overwrite=""
+  local backup=""
+  local skip=""
+  local action=""
+
+  if [ "$DRY_RUN" = true ]; then
+    if [ ! -e "$src" ] && [ ! -L "$src" ]; then
+      preview "source is missing: $src"
+    elif [ -L "$dst" ] && [ "$(readlink "$dst")" == "$src" ]; then
+      preview "already linked: $(tildify "$dst")"
+    elif [ -e "$dst" ] || [ -L "$dst" ]; then
+      preview "would prompt before replacing: $(tildify "$dst")"
+    else
+      preview "would link $(tildify "$dst") -> $src"
+    fi
+
+    return
+  fi
+
+  if [ ! -e "$src" ] && [ ! -L "$src" ]; then
+    fail "Source does not exist: $src"
+  fi
 
   if [ ! -d "$(dirname "$dst")" ]; then
     mkdir -p "$(dirname "$dst")"
@@ -127,7 +162,9 @@ handle_existing_file() {
       S)
         skip_all=true
         ;;
-      *) ;;
+      *)
+        skip=true
+        ;;
 
     esac
   fi
@@ -142,8 +179,14 @@ handle_existing_file() {
   fi
 
   if [ "$backup" == "true" ]; then
-    mv "$dst" "${dst}.backup"
-    success "moved $dst to ${dst}.backup"
+    local backup_path="${dst}.backup"
+
+    if [ -e "$backup_path" ] || [ -L "$backup_path" ]; then
+      backup_path="${dst}.backup.$(date +%Y%m%d%H%M%S)"
+    fi
+
+    mv "$dst" "$backup_path"
+    success "moved $dst to $backup_path"
   fi
 }
 
@@ -155,7 +198,9 @@ install_dotfiles() {
   local skip_all=false
 
   # Create .config directory if it doesn't exist
-  mkdir -p ~/.config
+  if [ "$DRY_RUN" = false ]; then
+    mkdir -p "$HOME/.config"
+  fi
 
   cd "$TILDE_DIR"
 
@@ -202,15 +247,21 @@ install_extras() {
   local backup_all=false
   local skip_all=false
 
-  if [ ! -d "/usr/local/bin" ]; then
+  # Stable path for configs, regardless of where the repository is cloned
+  symlink_file "$DOTFILES_DIR" "$HOME/.dotfiles"
+
+  # Link only SSH configuration; preserve keys and other SSH files
+  if [ "$DRY_RUN" = false ]; then
+    mkdir -p "$HOME/.ssh"
+    chmod 700 "$HOME/.ssh"
+  fi
+
+  symlink_file "$TILDE_DIR/.ssh/config" "$HOME/.ssh/config"
+
+  if [ "$DRY_RUN" = false ] && [ ! -d "/usr/local/bin" ]; then
     echo "Administrator password required to create /usr/local/bin:"
     sudo mkdir -p "/usr/local/bin"
   fi
-
-  # CotEditor: Install `cot` command-line tool
-  command -v cot &> /dev/null || {
-    symlink_file "/Applications/CotEditor.app/Contents/SharedSupport/bin/cot" "/usr/local/bin/cot"
-  }
 
   #
   # VSCode
@@ -222,52 +273,21 @@ install_extras() {
   }
   # Enable settings sync from dotfiles
   vscode_user_folder="$HOME/Library/Application Support/Code/User"
-  rm -rf "$vscode_user_folder"
-  ln -sfn "$DOTFILES_DIR/vscode/User" "$vscode_user_folder"
 
-  # Lazydocker
-  symlink_file "$DOTFILES_DIR/lazydocker/config.yml" "$HOME/Library/Application Support/lazydocker/config.yml"
+  symlink_file \
+    "$DOTFILES_DIR/vscode/User/settings.json" \
+    "$vscode_user_folder/settings.json"
 
-  # Lazygit
-  symlink_file "$DOTFILES_DIR/lazygit/state.yml" "$HOME/Library/Application Support/lazygit/state.yml"
+  symlink_file \
+    "$DOTFILES_DIR/vscode/User/tasks.json" \
+    "$vscode_user_folder/tasks.json"
 
-  # GPG
-  symlink_file "$DOTFILES_DIR/gpg/gpg-agent.conf" "$HOME/.gnupg/gpg-agent.conf"
+  symlink_file \
+    "$DOTFILES_DIR/vscode/User/snippets/global.code-snippets" \
+    "$vscode_user_folder/snippets/global.code-snippets"
 
   # Quick-Look plugins to enhance experience using file manager
   symlink_file "$DOTFILES_DIR/ql-plugins" "$HOME/Library/QuickLook"
-
-  # Firefox Developer Edition
-  ff_dev_profile_dir="$("$DOTFILES_DIR"/firefox/lib/get-firefox-dev-path)"
-  symlink_file "$DOTFILES_DIR/firefox/user.js" "$ff_dev_profile_dir/user.js" true
-  rm -rf "$ff_dev_profile_dir/chrome"
-  mkdir -p "$ff_dev_profile_dir/chrome"
-  ln "$DOTFILES_DIR/firefox/chrome/userContent.css" "$ff_dev_profile_dir/chrome/userContent.css"
-  ln "$DOTFILES_DIR/firefox/chrome/userChrome.css" "$ff_dev_profile_dir/chrome/userChrome.css"
-
-  #
-  # AI agents
-  #
-
-  AGENTS_DIR="$HOME/.agents"
-  AGENTS_SETUP_DIR="$DOTFILES_DIR/agents"
-  AGENTS_INSTRUCTIONS="$AGENTS_SETUP_DIR/instructions.md"
-
-  #
-  # Amp
-  #
-
-  # Base instructions
-  symlink_file "$AGENTS_INSTRUCTIONS" "$HOME/.config/amp/AGENTS.md"
-
-  #
-  # Codex
-  #
-
-  # Base instructions
-  symlink_file "$AGENTS_INSTRUCTIONS" "$HOME/.codex/AGENTS.md"
-  # Configuration
-  symlink_file "$DOTFILES_DIR/tilde/.codex/config.toml" "$HOME/.codex/config.toml"
 }
 
 install_dotfiles

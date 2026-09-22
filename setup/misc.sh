@@ -63,8 +63,21 @@ if command_exists gh && ! gh auth status &> /dev/null; then
   echo "[GitHub CLI] You are not logged into any GitHub hosts. To log in, run: ${BOLD}gh auth login${RESET}"
 fi
 
+# Install and activate the latest Node.js LTS release
+eval "$(fnm env --shell bash)"
+fnm install --lts --use
+fnm default "$(fnm current)"
+
+# Corepack is no longer bundled with Node.js 25+
+npm install --global corepack@latest
+corepack enable
+
+# Provide pnpm outside projects; projects can select an exact version
+# through their packageManager field
+corepack install --global pnpm@latest
+
 # Node.js global config
-info "🚀 Installing Node.js dependencies…"
+info "🚀 Configuring Node.js tooling..."
 # Less verbose output
 npm config set loglevel warn
 # Disable funding messages
@@ -79,12 +92,3 @@ npm config set allow-git none
 # npm config set allow-remote none
 # Only install package versions published at least 7 days ago
 npm config set min-release-age 7
-
-# Npm packages
-packages=(
-  npm-upgrade
-  aws-cdk
-  serverless
-  @antfu/ni
-)
-npm install -g "${packages[@]}"

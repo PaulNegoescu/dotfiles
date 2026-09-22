@@ -1,114 +1,79 @@
 # Taps
-tap "bengerthelorf/tap"
 tap "manaflow-ai/cmux"
-tap "modem-dev/tap"
-tap "oven-sh/bun"
 
 # CLI tools
-brew "aws-cdk" # AWS Cloud Development Kit
-brew "awscli" # Official Amazon AWS command-line interface
-brew "bat" # Output highlighting (better `cat`)
-brew "btop" # Performance and resource monitoring tool (better `top`)
-brew "eza" # Listing files with info (better `ls`)
-brew "fastfetch" # Show pretty system info
-brew "fd" # Find entries in your filesystem (better `find`)
+brew "bat" # Syntax-highlighted cat
+brew "btop" # Process and resource monitor
+brew "eza" # Modern ls
+brew "fd" # Modern find
 brew "fnm" # Node.js version manager
-brew "fzf" # Fuzzy file finder and filtering
-brew "gh" # GitHub CLI: interact with GitHub PRs, issues, repos
-brew "git" # Version control
-brew "gitleaks" # Audit git repos for secrets
-brew "gnupg" # Encryption and signing capabilities for data verification
-brew "lazygit" # Full Git management app
-brew "mpv" # Media player
-brew "node" # Fallback Node.js version
-brew "pinentry-mac" # Securely enter your GPG passphrase
-brew "pnpm" # Efficient Node.js package manager
-brew "prettyping" # Prettier and compact `ping`
-brew "python@3.11" # Required by awscli
-brew "ripgrep" # Searching within files (better `grep`)
-brew "shellcheck" # Shell scripts linting
-brew "sops" # Secrets manager
-brew "starship" # Prompt manager
-brew "tlrc" # Community-maintained docs (better `man`)
-brew "trash-cli", link: true # Record and restore removed files (better `rm`)
-brew "webp" # More efficient web images
-brew "zoxide" # Convenient and magical navigation (better `cd`)
-brew "zsh" # A shell of choice
-brew "zsh-autosuggestions" # Fish-like autosuggestions for Zsh
-brew "zsh-fast-syntax-highlighting" # Feature-rich syntax highlighting for Zsh
-brew "jesseduffield/lazydocker/lazydocker" # Full Docker management app
-brew "modem-dev/tap/hunk" # Review-first terminal diff viewer (better `diff`)
-brew "oven-sh/bun/bun" # Bun runtime
-
-# Temporarily required for some work projects
-brew "cairo"
-brew "giflib"
-brew "jpeg"
-brew "libpng"
-brew "librsvg"
-brew "pango"
-brew "pkgconf"
+brew "fzf" # Fuzzy finder
+brew "gh" # GitHub CLI
+brew "git" # Current Git release
+brew "git-delta" # Default Git pager
+brew "gitleaks" # Scan repositories for secrets
+brew "hunk" # Interactive changeset reviewer
+brew "python" # Scripts and native Node module builds
+brew "ripgrep" # Fast recursive search
+brew "shellcheck" # Shell script validation
+brew "starship" # Shell prompt
+brew "tlrc" # tldr client used by the repository helpers
+brew "trash-cli", link: true # Recoverable file deletion
+brew "webp" # Required by bin/optimize-image
+brew "zoxide" # Directory navigation
+brew "zsh" # Current Zsh release
+brew "zsh-autosuggestions"
+brew "zsh-fast-syntax-highlighting"
 
 # Fonts
-cask "font-symbols-only-nerd-font"
+cask "font-meslo-lg-nerd-font"
 
 # GUI apps
-cask "bitwarden" # Password manager
-cask "bruno" # Local-first API client
-cask "cleanshot" # Annotated screenshots & quick videos
-cask "cmux" # Multitasking terminal to orchestrate agents
-cask "coteditor" # Simple code/text editor
-cask "dash" # API documentation reader
-cask "discord" # Messaging / Community
-cask "firefox@developer-edition" # Main browser with configurable privacy
-cask "ghostty" # Better terminal emulator for regular operating
-cask "github" # GitHub Desktop GUI
-cask "helium-browser" # Privacy-first browser for testing
-cask "bengerthelorf/tap/iconchanger" # Custom app icons
-cask "iina" # Modern media player
-cask "itsycal" # Tiny popup calendar in a menu bar
-cask "jordanbaird-ice" # Manage menu bar icons
-cask "keka" # File archiver and extractor
-cask "languagetool-desktop" # Grammar, spell, and style checker
-cask "ledger-wallet" # Crypto hardware wallet manager
-cask "nimble-commander" # File manager
-cask "notion" # Collaborative note taking app
-cask "obsidian" # Main note taking app
+cask "alt-tab" # Windows-style application switcher
+cask "cmux" # Terminal designed for parallel coding-agent sessions
+cask "dash" # Offline API documentation
+cask "ghostty" # Main terminal emulator
+cask "helium-browser" # Browser for testing
+cask "hiddenbar" # Menu bar management
+cask "keka" # File archiver
+cask "legcord" # Discord client
+cask "marta" # File manager
+cask "obsidian" # Notes
 cask "optimage" # Image optimization
-cask "orbstack" # Running containerized applications. Ships `docker-compose` as well
-cask "pearcleaner" # Clean up macOS from junk and apps leftovers
-cask "raycast" # All-in-one app / tasks launcher
-cask "rectangle" # Window manager
-cask "rocket" # Handy emojis picker
-cask "slack" # Messaging social platform
-cask "superduper" # Data backup
-cask "syntax-highlight" # Preview many different source code files
-cask "telegram" # Messenger
-cask "visual-studio-code" # Main code editor
-cask "whatsapp" # Messenger
+cask "orbstack" # Containers and Linux machines
+cask "pearcleaner" # Application uninstaller
+cask "raycast" # Launcher and automation
+cask "signal" # Secure messaging
+cask "spotify" # Music
+cask "visual-studio-code" # Main editor
+cask "whatsapp" # Messaging
+cask "zoom" # Video meetings
 
 # VS Code extensions
-vscode "astro-build.astro-vscode"
+vscode "angelluisalmaraz.project-colorize"
+vscode "beardedbear.beardedicons"
+vscode "bierner.markdown-mermaid"
 vscode "bierner.markdown-preview-github-styles"
+vscode "bradgashler.htmltagwrap"
 vscode "bradlc.vscode-tailwindcss"
-vscode "dart-code.dart-code"
-vscode "dart-code.flutter"
 vscode "davidanson.vscode-markdownlint"
 vscode "dbaeumer.vscode-eslint"
+vscode "dotjoshjohnson.xml"
+vscode "dsznajder.es7-react-js-snippets"
 vscode "editorconfig.editorconfig"
 vscode "esbenp.prettier-vscode"
-vscode "github.vscode-pull-request-github"
-vscode "ms-azuretools.vscode-containers" # Auto-installed by Docker extension
-vscode "ms-azuretools.vscode-docker"
-vscode "naumovs.color-highlight"
+vscode "lokalise.i18n-ally"
+vscode "mgmcdermott.vscode-language-babel"
+vscode "mhutchie.git-graph"
+vscode "mikestead.dotenv"
+vscode "ms-azuretools.vscode-containers"
+vscode "ms-vscode-remote.remote-containers"
+vscode "ms-vscode.vscode-chat-customizations-evaluations"
 vscode "oxc.oxc-vscode"
+vscode "quicktype.quicktype"
 vscode "redhat.vscode-yaml"
-vscode "sapegin.icons-squirrelppuccinlight"
-vscode "sapegin.just-blame"
-vscode "sapegin.mini-markdown"
-vscode "sapegin.theme-squirrelsonglight"
-vscode "sapegin.todo-tomorrow"
-vscode "sleistner.vscode-fileutils"
 vscode "streetsidesoftware.code-spell-checker"
-vscode "tekumara.typos-vscode"
+vscode "tinkertrain.theme-panda"
 vscode "usernamehw.errorlens"
+vscode "vscode-icons-team.vscode-icons"
+vscode "yoavbls.pretty-ts-errors"

@@ -15,11 +15,10 @@ source_brew_plugin "zsh-autosuggestions"
 
 # Enable zsh-fast-syntax-highlighting: https://github.com/zdharma-continuum/fast-syntax-highlighting#installation
 source_brew_plugin "zsh-fast-syntax-highlighting"
-fast-theme $HOME/dotfiles/colors/fast-syntax-highlighting.ini --quiet
 
 # Enable fzf: https://github.com/junegunn/fzf
 if command_exists fzf; then
-  source $HOME/dotfiles/zsh/fzf.zsh
+  source "$DOTFILES/zsh/fzf.zsh"
 fi
 
 # Setup zoxide: https://github.com/ajeetdsouza/zoxide?tab=readme-ov-file#installation

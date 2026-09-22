@@ -9,7 +9,7 @@
 
 set -eu
 
-cd "$HOME/dotfiles" &> /dev/null || return
+cd "${DOTFILES:-$HOME/.dotfiles}" &> /dev/null || exit 1
 
 echo "Pulling changes from upstream…"
 git pull

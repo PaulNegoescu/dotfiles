@@ -4,31 +4,9 @@ font-family = MonoLisa
 font-style = MonoLisa
 font-size = 17
 
-# Disable ligatures and configure font features
-font-feature = calt
-font-feature = -clig
-font-feature = -liga
-font-feature = zero
-font-feature = ss01
-
-theme = dark:Squirrelsong Dark Deep Purple,light:Squirrelsong Light
-window-theme = dark
-minimum-contrast = 1.1
-macos-icon = custom-style
-macos-icon-frame = beige
 macos-titlebar-style = tabs
-# Generate extended 256 color palette based on theme base palette
-palette-generate = true
-palette-harmonious = true
-faint-opacity = 0.75
-
-window-padding-x = 8
-window-padding-y = 12
 
 # Bar non-blinking cursor
-adjust-cursor-thickness = 2
-cursor-style = bar
-cursor-style-blink = false
 shell-integration = zsh
 shell-integration-features = no-cursor
 mouse-hide-while-typing = true

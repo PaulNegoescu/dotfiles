@@ -19,13 +19,3 @@
 
 # Hide : after line numbers
 --field-match-separator=
-
-# Color theme
---colors=path:fg:blue
---colors=path:style:bold
---colors=line:none
---colors=line:fg:black
---colors=match:fg:white
-# Squirrelsong Dark brightPinkDimer
---colors=match:bg:94,55,92
---colors=match:style:bold
