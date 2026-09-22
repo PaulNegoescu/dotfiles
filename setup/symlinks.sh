@@ -285,9 +285,6 @@ install_extras() {
   symlink_file \
     "$DOTFILES_DIR/vscode/User/snippets/global.code-snippets" \
     "$vscode_user_folder/snippets/global.code-snippets"
-
-  # Quick-Look plugins to enhance experience using file manager
-  symlink_file "$DOTFILES_DIR/ql-plugins" "$HOME/Library/QuickLook"
 }
 
 install_dotfiles
