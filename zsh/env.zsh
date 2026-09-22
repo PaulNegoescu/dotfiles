@@ -7,8 +7,8 @@ export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 export LANGUAGE="en_US.UTF-8"
 
-export TERM="xterm-256color"
-export WORKSPACE="$HOME/dev"
+# Let each terminal emulator advertise its own capabilities through TERM.
+export WORKSPACE="$HOME/work"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then

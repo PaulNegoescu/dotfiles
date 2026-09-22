@@ -14,8 +14,8 @@ alias -- -="cd -" # previous working directory
 # Hot-access directories
 alias library="cd $HOME/Library"
 alias proj="cd $WORKSPACE"
-alias forks="cd $WORKSPACE/forks"
-alias i="cd $WORKSPACE/oss"
+alias work="proj"
+alias personal="cd $WORKSPACE/personal"
 
 # zshrc config
 alias zshrc="$EDITOR ~/.zshrc"
@@ -39,7 +39,7 @@ alias brwe="brew"
 # Shortcuts
 alias -- +x="chmod +x"
 alias o="open"
-alias oo="open ."
+alias oo="open -a 'Marta' ."
 alias g="git"
 alias d="docker"
 alias dc="docker compose"
@@ -100,13 +100,20 @@ alias get="curl -O -L"
 #
 
 # Most used Git shortcuts
-alias gs="git rev-parse --git-dir > /dev/null 2>&1 && git status -sb || ls"
+alias gst="git rev-parse --git-dir > /dev/null 2>&1 && git status -sb || ls"
+alias gs="gst"
 alias gcm="git commit -m"
 alias gaa="git add -A"
 alias gd="git d"
 alias gdc="git dc"
-alias gl="git l"
-alias gpuf="push --force-with-lease"
+alias gl="git pull"
+alias gp="git push"
+alias gpu='git push -u origin HEAD'
+alias gpf="git push --force-with-lease"
+alias go="git switch"
+alias god="git switch develop && git pull"
+alias gmd="git fetch && git rebase origin/develop"
+alias gfr="git fetch && git rebase origin/$(git rev-parse --abbrev-ref HEAD)"
 
 # Preview and open files in the current dir
 command_exists fzf && command_exists bat && alias preview="fzf --preview 'bat --style=numbers --color=always {}'"
@@ -131,24 +138,27 @@ take() {
 
 function git() {
   # Clone a GitHub repo and cd into the created directory
-  if [ $1 = "clone" ]; then
-    command git clone "${@:2}"
+  if [[ "${1:-}" == "clone" ]]; then
+    command git "$@" || return
 
-    if [ "$3" ]; then
-      cd "$3"
+    local repo_dir
+    if [[ -n "${3:-}" ]]; then
+      repo_dir="$3"
     else
-      cd $(basename "$2" .git)
+      repo_dir="$(basename "$2" .git)"
     fi
 
-    if [[ -r "./yarn.lock" ]]; then
-      yarn
-    elif [[ -r "./pnpm-lock.yaml" ]]; then
+    cd "$repo_dir" || return
+
+    if [[ -r "./pnpm-lock.yaml" ]]; then
       pnpm install
     elif [[ -r "./package-lock.json" ]]; then
-      npm install
+      npm ci
+    elif [[ -r "./yarn.lock" ]]; then
+      corepack yarn install
     fi
   else
-    command git $@
+    command git "$@"
   fi
 }
 

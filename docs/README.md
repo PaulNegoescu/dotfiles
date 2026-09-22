@@ -16,8 +16,8 @@
 | eza | `lta` | Get a nested listing with hidden files |
 | bat | `cat {{file}}` | Show file contents with syntax highlighting (replaces `cat`) |
 | btop | `top` | Open the interactive system resource monitor (replaces `top`) |
+| glow | `glow {{file}}` | Render Markdown documents in the terminal |
 | tldr | `man {{command}}` | Show simplified, example-driven help for a command (replaces `man`) |
-| prettyping | `ping {{host}}` | Ping a host with nicer, compact output (replaces `ping`) |
 | trash | `rm {{file}}` | Move files to the macOS Trash instead of permanently deleting them (replaces `rm`) |
 | zoxide | `cd {{part_of_dir_path}}` | Magic opener for directories based on the Zsh command history via `zoxide`. More information: <https://github.com/ajeetdsouza/zoxide>. |
 | — | `Ctrl+R` | Fuzzy find in your command history. |
@@ -30,9 +30,8 @@
 | `..` `...` `....` | Navigate to 1/2/3 parent directories up |
 | `-` | Navigate to a previous working directory |
 | `library` | Navigate to the user `~/Library` directory |
-| `proj` | Navigate to the workspace projects directory (`$WORKSPACE`) |
-| `forks` | Navigate to the forks directory (`$WORKSPACE/forks`) |
-| `i` | Navigate to the open-source projects directory (`$WORKSPACE/oss`) |
+| `proj` `work` | Navigate to the workspace directory (`~/work`) |
+| `personal` | Navigate to the personal projects directory (`~/work/personal`) |
 
 ## Zsh config
 
@@ -46,20 +45,15 @@
 | Command | Description |
 | --- | --- |
 | `+x {{file}}` | Make a file executable |
-| `o {{file_or_dir}}` | Open Finder |
-| `oo` | Open current directory in Finder |
+| `o {{file_or_dir}}` | Open a file or directory with its default macOS application |
+| `oo` | Open current directory in Marta |
 | `e {{file}}` | Open the specified file in the default editor |
 | `c` `cc` | Open current directory in Visual Studio Code |
 | `d {{args}}` | Run the Docker CLI |
 | `dc {{args}}` | Run Docker Compose |
-| `sops {{file}}` | Edit an encrypted secrets file with `sops` using VS Code as the editor |
 | `where {{command}}` | Locate a command (alias for `which`) |
 | `python` | Run Python 3 (alias for `python3`) |
-| `t` | Open current directory in Github Desktop |
-| `ff` | Open current directory in Nimble Commander |
-| `lg` | Run [`lazygit`](https://github.com/jesseduffield/lazygit) in terminal |
-| `ld` | Run [`lazydocker`](https://github.com/jesseduffield/lazydocker) in terminal |
-| `gpgkeys` | List all secret GPG keys with long key ID format |
+| `ff` | Open current directory in Marta |
 
 ## Node & package management
 
@@ -67,10 +61,7 @@
 | --- | --- |
 | `pn {{args}}` | Run `pnpm` |
 | `nvm {{args}}` | Run the `fnm` Node version manager (kept as `nvm` for muscle memory) |
-| `nio` | Install dependencies, preferring the offline cache. More information: <https://github.com/antfu/ni>. |
-| `ns` `nd` `nb` `nbw` `nt` `ntw` `ntc` `nf` | Run common package scripts through `nr` (`@antfu/ni`): `ns` → `start`, `nd` → `dev`, `nb` → `build`, `nbw` → `build --watch`, `nt` → `test`, `ntw` → `test --watch`, `ntc` → `typecheck`, `nf` → `format` |
-| `lint` `lintf` | Run the project linter (optionally with `--fix`) |
-| `release` `re` | Run the project release script |
+| `npmplease` | Remove `node_modules` and reinstall with the package manager selected by the project lockfile |
 
 ## Files & utilities
 
@@ -87,14 +78,21 @@
 | Command | Description |
 | --- | --- |
 | `gitroot` `gr` | Navigate to the root directory of a Git repository |
-| `git clone {{repo_url}}` `g clone {{repo_url}}` | Clone Git repository, install dependencies, and navigate to created directory |
-| `gs` | Show the state of the working directory and staging area of a Git repository, or list directory contents outside a Git repo |
+| `git clone {{repo_url}}` | Clone Git repository, install dependencies, and navigate to created directory |
+| `gst` `gs` | Show the state of the working directory and staging area of a Git repository, or list directory contents outside a Git repo |
 | `gaa` | Stage all changes in the working directory |
 | `gcm` | Create a commit with the specified message |
 | `gd` | Show the differences (`diff`) between the current state of files in the working directory and the last committed state |
 | `gdc` | Show the differences (`diff`) between staged changes and the last commit |
-| `gl` | Display compact and readable log |
-| `gpuf` | Push with `--force-with-lease` |
+| `git l` | Display the compact, readable Git log |
+| `gl` | Pull the current branch |
+| `gp` | Push the current branch |
+| `gpu` | Push the current branch to `origin` and set its upstream |
+| `gpf` | Push with `--force-with-lease` |
+| `go {{branch}}` | Switch branches |
+| `god` | Switch to `develop` and pull its latest changes |
+| `gmd` | Fetch and rebase the current branch onto `origin/develop` |
+| `gfr` | Fetch and rebase current branch onto the remote tracking branch |
 | `br` | Switch branches, create a new local branch if it doesn’t exist, or delete local branches. Automatically sets up and maintains remote branch tracking so you can just type `git pull` instead of `git pull origin newbranch`. If no argument is specified, will list recent local branches; use -r to list recent remote branches. |
 | `pull` | Pull remote changes using rebase while safely stashing and restoring local changes. Automatically updates submodules and reinstalls dependencies when lockfiles or package manifests change |
 | `push` | Push local changes to the tracked remote branch. Intelligently maintains upstream tracking so you can push without specifying a remote or branch. Any extra arguments will be passed through to `git push`, for example `push -f` |

@@ -12,6 +12,7 @@ brew "gh" # GitHub CLI
 brew "git" # Current Git release
 brew "git-delta" # Default Git pager
 brew "gitleaks" # Scan repositories for secrets
+brew "glow" # Render Markdown in the terminal
 brew "hunk" # Interactive changeset reviewer
 brew "python" # Scripts and native Node module builds
 brew "ripgrep" # Fast recursive search

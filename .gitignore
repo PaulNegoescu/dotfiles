@@ -12,7 +12,3 @@ tilde/.ssh/*
 !tilde/.ssh/config
 tilde/.config/amp/settings.json.amp-write-meta
 /node_modules/
-
-# Obsidian
-obsidian/**/workspace.json
-obsidian/**/workspace-mobile.json

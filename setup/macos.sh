@@ -8,8 +8,7 @@ case "${1:-}" in
   --dry-run)
     DRY_RUN=true
     ;;
-  "")
-    ;;
+  "") ;;
   *)
     echo "Usage: $0 [--dry-run]" >&2
     exit 1
@@ -61,8 +60,8 @@ run defaults write com.apple.dock show-recents -bool false
 run defaults write com.apple.dock minimize-to-application -bool true
 
 if [ "$DRY_RUN" = false ]; then
-  killall Finder >/dev/null 2>&1 || true
-  killall Dock >/dev/null 2>&1 || true
+  killall Finder > /dev/null 2>&1 || true
+  killall Dock > /dev/null 2>&1 || true
   echo "Done. Some preferences may require logging out to take effect."
 else
   echo "Dry run complete; nothing was changed."
