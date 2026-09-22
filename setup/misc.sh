@@ -4,13 +4,32 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if ! command -v brew > /dev/null; then
+  if [ -x /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [ -x /usr/local/bin/brew ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+fi
+
+if ! command -v brew > /dev/null; then
+  echo "Homebrew is required. Run ./setup/brew.sh first." >&2
+  exit 1
+fi
+
+eval "$(brew shellenv)"
 
 DOTFILES_DIR="$(pwd)"
 
-BLUE=$(tput setaf 4)
-BOLD=$(tput bold)
-RESET=$(tput sgr0)
+BLUE=""
+BOLD=""
+RESET=""
+
+if [ -t 1 ] && command -v tput > /dev/null 2>&1; then
+  BLUE=$(tput setaf 4 || true)
+  BOLD=$(tput bold || true)
+  RESET=$(tput sgr0 || true)
+fi
 
 indent() {
   sed 's/^/  /'
@@ -21,35 +40,9 @@ info() {
   echo "[ ${BLUE}..${RESET} ] $1" | indent
 }
 
-warning() {
-  tput setaf 1
-  echo "/!\\ $1 /!\\"
-  tput sgr0
-}
-
 command_exists() {
   command -v "$@" &> /dev/null
 }
-
-# Ask for the administrator password upfront
-warning "Activate sudo"
-sudo echo "Sudo activated!"
-echo
-
-# Install Xcode Command Line Tools and accept its license
-if ! xcode-select -p &> /dev/null; then
-  xcode-select --install &> /dev/null
-
-  # Wait until the Xcode Command Line Tools are installed
-  until xcode-select -p &> /dev/null; do
-    sleep 5
-  done
-
-  xcodebuild -license
-fi
-
-# Verify Xcode Command Line Tools successful installation
-xcode-select -p
 
 # Make custom binary scripts executable
 info 'Changing access permissions for binary scripts…'
@@ -64,6 +57,11 @@ if command_exists gh && ! gh auth status &> /dev/null; then
 fi
 
 # Install and activate the latest Node.js LTS release
+if ! command_exists fnm; then
+  echo "fnm is required. Install the Homebrew bundle first." >&2
+  exit 1
+fi
+
 eval "$(fnm env --shell bash)"
 fnm install --lts --use
 fnm default "$(fnm current)"

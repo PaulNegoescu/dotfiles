@@ -7,8 +7,8 @@ My personal dotfiles for configuring macOS with Zsh and Homebrew.
 ## Requirements
 
 - macOS
-- Homebrew (the install script will install Homebrew)
-- Zsh (the install script will install Zsh via Homebrew)
+- Administrator access
+- An internet connection
 
 ## What's in there?
 
@@ -27,12 +27,7 @@ My personal dotfiles for configuring macOS with Zsh and Homebrew.
 
 ## Installation
 
-1. Point the DNS Servers to [Cloudflare DNS](https://one.one.one.one/dns/)
-   - `1.1.1.1`
-   - `1.0.0.1`
-   - `2606:4700:4700::1111`
-   - `2606:4700:4700::1001`
-1. Configure Git and GitHub SSH
+1. Configure GitHub SSH
    1. [Generate SSH key and add it to the ssh-agent](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
    1. [Add your public SSH key to GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
    1. Test your authentication with:
@@ -42,31 +37,54 @@ My personal dotfiles for configuring macOS with Zsh and Homebrew.
       ```
 
 1. Install [MonoLisa font](https://www.monolisa.dev/)
-1. Choose _manual_ or _automatic_ dotfiles installation below
-
-### Manually
-
-```shell
-git clone git@github.com:PaulNegoescu/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-./setup/zsh.sh
-./setup/brew.sh
-./setup/misc.sh
-./setup/symlinks.sh
-```
-
-### Automatically
-
-To automate the setup of your dotfiles on a new machine, use the [setup](./setup.sh) script.
-
-> [!CAUTION] Use at your own risk!
+1. Clone the repository:
 
 ```bash
-git clone git@github.com:PaulNegoescu/dotfiles.git ~/dotfiles
-~/dotfiles/setup.sh
+mkdir -p ~/work/personal
+git clone git@github.com:PaulNegoescu/dotfiles.git ~/work/personal/dotfiles
+cd ~/work/personal/dotfiles
 ```
 
-This will install all required dotfiles in your home directory as symlinks. Everything is then configured via modifying files in `~/dotfiles`.
+### Interactive setup wizard
+
+Run the setup wizard:
+
+```bash
+./setup.sh
+```
+
+Every machine-changing step requires separate approval and defaults to **No**:
+
+- Touch ID for `sudo`
+- Xcode Command Line Tools
+- Homebrew packages, applications, fonts, and VS Code extensions
+- Homebrew Zsh as the default shell
+- Node.js LTS, Corepack, and pnpm
+- Dotfile and editor-setting symlinks
+- macOS preferences, with a dry-run preview before applying
+
+To deliberately run every step without confirmation:
+
+```bash
+./setup.sh --yes
+```
+
+The symlink step creates `~/.dotfiles` as a stable link to the repository. Shell configuration uses that stable path regardless of where the repository is cloned.
+
+### Individual setup steps
+
+Each component can also be run independently:
+
+```bash
+./setup/xcode.sh
+./setup/brew.sh
+./setup/zsh.sh
+./setup/misc.sh
+./setup/symlinks.sh --dry-run
+./setup/symlinks.sh
+./setup/macos.sh --dry-run
+./setup/macos.sh
+```
 
 ## Extras
 
@@ -97,8 +115,8 @@ If this file exists, it will be automatically included after the configurations 
 ## Updating
 
 ```bash
-cd ~/dotfiles
-git pull
+cd ~/work/personal/dotfiles
+git pull --ff-only
 ./setup.sh
 ```
 
