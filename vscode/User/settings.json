@@ -385,11 +385,5 @@
   "git.inputValidationSubjectLength": 50,
   "git.openRepositoryInParentFolders": "always",
 
-  // Markdownlint
-  "markdownlint.config": {
-    "no-trailing-punctuation": false
-  },
-
   "tailwindCSS.classAttributes": ["class", "className", "ngClass", "variants"],
-  "reactSnippets.settings.importReactOnTop": false
 }
