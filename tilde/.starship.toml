@@ -7,7 +7,6 @@ command_timeout = 1000
 format = """\
 ${custom.path}\
 ${custom.git}\
-$git_state\
 $line_break\
 $character\
 """
@@ -29,10 +28,6 @@ format = "[$output]($style) "
 style = "bold #B084EB"
 description = "Git branch, worktree state, and upstream divergence"
 # Ahead/behind counts use the tracking ref from the most recent `git fetch`.
-
-[git_state]
-format = '[\($state( $progress_current/$progress_total)\)]($style) '
-style = "bold #FFB86C"
 
 [character]
 # Nerd Fonts nf-fa-angle_right \uf105
