@@ -2,7 +2,32 @@
 
 set -euo pipefail
 
-git rev-parse --is-inside-work-tree > /dev/null 2>&1 || exit 1
+is_git_repository() {
+  local directory=$PWD
+
+  if [ -n "${GIT_DIR:-}" ]; then
+    return 0
+  fi
+
+  while :; do
+    if [ -e "$directory/.git" ]; then
+      return 0
+    fi
+
+    if [ "$directory" = "/" ]; then
+      return 1
+    fi
+
+    directory=${directory%/*}
+    [ -n "$directory" ] || directory="/"
+  done
+}
+
+is_git_repository || exit 1
+
+if [ "${1:-}" = "--check" ]; then
+  exit
+fi
 
 branch=$(git symbolic-ref --quiet --short HEAD 2> /dev/null || git rev-parse --short HEAD 2> /dev/null)
 
