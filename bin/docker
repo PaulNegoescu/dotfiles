@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Keep Docker-compatible command names while using Podman as the engine.
+exec podman "$@"

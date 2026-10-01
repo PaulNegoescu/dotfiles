@@ -223,6 +223,15 @@ fi
 load_homebrew
 
 if command -v brew > /dev/null; then
+  if command -v podman > /dev/null; then
+    run_step \
+      "Initialize Podman and enable Docker-compatible commands?" \
+      "Configure Podman" \
+      "$DOTFILES_DIR/setup/podman.sh"
+  else
+    skipped "Configure Podman (Podman is unavailable)"
+  fi
+
   run_step \
     "Configure Homebrew Zsh as your default shell?" \
     "Configure Zsh" \

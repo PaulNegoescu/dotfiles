@@ -49,8 +49,8 @@
 | `oo` | Open current directory in Marta |
 | `e {{file}}` | Open the specified file in the default editor |
 | `c` `cc` | Open current directory in Visual Studio Code |
-| `d {{args}}` | Run the Docker CLI |
-| `dc {{args}}` | Run Docker Compose |
+| `d {{args}}` | Run Docker-compatible commands on Podman |
+| `dc {{args}}` | Run Docker Compose workloads on Podman |
 | `where {{command}}` | Locate a command (alias for `which`) |
 | `python` | Run Python 3 (alias for `python3`) |
 | `ff` | Open current directory in Marta |
