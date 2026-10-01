@@ -197,6 +197,17 @@
 
   /*
   |--------------------------------------------------------------------------
+  | Containers
+  |--------------------------------------------------------------------------
+  */
+
+  // Podman is the container engine; the shell still accepts Docker commands.
+  "containers.containerClient": "com.microsoft.visualstudio.containers.podman",
+  "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.podmancompose",
+  "dev.containers.dockerPath": "podman",
+
+  /*
+  |--------------------------------------------------------------------------
   | Git and source control management
   |--------------------------------------------------------------------------
   */

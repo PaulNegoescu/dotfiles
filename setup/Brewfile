@@ -15,6 +15,8 @@ brew "git-delta" # Default Git pager
 brew "gitleaks" # Scan repositories for secrets
 brew "glow" # Render Markdown in the terminal
 brew "hunk" # Interactive changeset reviewer
+brew "podman" # Container engine and Docker-compatible CLI
+brew "podman-compose" # Compose provider for Podman
 brew "python" # Scripts and native Node module builds
 brew "ripgrep" # Fast recursive search
 brew "shellcheck" # Shell script validation
@@ -46,7 +48,6 @@ cask "legcord" # Discord client
 cask "marta" # File manager
 cask "obsidian" # Notes
 cask "optimage" # Image optimization
-cask "orbstack" # Containers and Linux machines
 cask "pearcleaner" # Application uninstaller
 cask "podman-desktop" # Container and image management
 cask "proton-drive" # Proton Drive client

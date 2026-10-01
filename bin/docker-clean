@@ -1,24 +1,24 @@
 #!/bin/bash
 #
-# Clear Docker cache and free up space on the system without asking for confirmation.
+# Clear Podman cache and free up space on the system without asking for confirmation.
 # >  - all stopped containers
 # >  - all unused networks
 # >  - all unused anonymous volumes
 # >  - all unused (incl. dandling) images
 # >  - all build cache
 #
-# > Show docker disk usage at the end.
+# > Show Podman disk usage at the end.
 #
-# - Remove dangling Docker items:
+# - Remove dangling Podman items:
 #
 # `docker-clean`
 #
 # ---
-# Based on https://docs.docker.com/config/pruning/
+# Based on https://docs.podman.io/en/stable/markdown/podman-system-prune.1.html
 #
 # Author: Nick Plekhanov, https://plekhanov.me
 # License: MIT
 # https://github.com/nicksp/dotfiles
 
-docker system prune -af --volumes \
-  && docker system df
+podman system prune -af --volumes \
+  && podman system df

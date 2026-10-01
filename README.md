@@ -58,6 +58,7 @@ Every machine-changing step requires separate approval and defaults to **No**:
 - Touch ID for `sudo`
 - Xcode Command Line Tools
 - Homebrew packages, applications, fonts, and VS Code extensions
+- Podman VM and Docker-compatible commands
 - Homebrew Zsh as the default shell
 - Node.js LTS, Corepack, and pnpm
 - Dotfile and editor-setting symlinks
@@ -71,6 +72,16 @@ To deliberately run every step without confirmation:
 
 The symlink step creates `~/.dotfiles` as a stable link to the repository. Shell configuration uses that stable path regardless of where the repository is cloned.
 
+### Containers
+
+Podman is the container engine. The setup keeps Docker-compatible command names:
+
+- `docker` delegates to the Podman CLI.
+- `docker compose` uses Podman's Compose provider.
+- `/var/run/docker.sock` maps to the Podman machine so Docker-aware tools can use the same engine.
+
+The Podman setup step initializes and starts the default macOS Podman machine, then enables the compatible Docker socket. It requires administrator access when the socket helper is installed.
+
 ### Individual setup steps
 
 Each component can also be run independently:
@@ -78,6 +89,7 @@ Each component can also be run independently:
 ```bash
 ./setup/xcode.sh
 ./setup/brew.sh
+./setup/podman.sh
 ./setup/zsh.sh
 ./setup/misc.sh
 ./setup/symlinks.sh --dry-run
