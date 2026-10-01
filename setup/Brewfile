@@ -1,8 +1,9 @@
 # Taps
-tap "manaflow-ai/cmux"
+tap "manaflow-ai/cmux", trusted: { casks: ["cmux"] }
 
 # CLI tools
 brew "bat" # Syntax-highlighted cat
+brew "biome" # Formatter and linter for web projects
 brew "btop" # Process and resource monitor
 brew "eza" # Modern ls
 brew "fd" # Modern find
@@ -30,12 +31,16 @@ brew "zsh-fast-syntax-highlighting"
 cask "font-meslo-lg-nerd-font"
 
 # GUI apps
+cask "aldente" # Battery charge limiter
 cask "alt-tab" # Windows-style application switcher
+cask "calibre" # E-book manager
 cask "cmux" # Terminal designed for parallel coding-agent sessions
-cask "dash" # Offline API documentation
+cask "ddpm" # Dell display and peripheral manager
+cask "foxitreader" # PDF reader
 cask "ghostty" # Main terminal emulator
 cask "helium-browser" # Browser for testing
 cask "hiddenbar" # Menu bar management
+cask "hyperkey" # Caps Lock and modifier remapping
 cask "keka" # File archiver
 cask "legcord" # Discord client
 cask "marta" # File manager
@@ -43,25 +48,37 @@ cask "obsidian" # Notes
 cask "optimage" # Image optimization
 cask "orbstack" # Containers and Linux machines
 cask "pearcleaner" # Application uninstaller
+cask "podman-desktop" # Container and image management
+cask "proton-drive" # Proton Drive client
+cask "proton-mail" # Proton Mail and Calendar client
+cask "proton-pass" # Proton password manager
 cask "raycast" # Launcher and automation
 cask "signal" # Secure messaging
 cask "spotify" # Music
+cask "stremio" # Media center
+cask "teamviewer" # Remote access
 cask "visual-studio-code" # Main editor
+cask "vlc" # Media player
 cask "whatsapp" # Messaging
 cask "zoom" # Video meetings
 
 # VS Code extensions
+vscode "adpyke.codesnap"
 vscode "angelluisalmaraz.project-colorize"
 vscode "beardedbear.beardedicons"
 vscode "bierner.markdown-mermaid"
 vscode "bierner.markdown-preview-github-styles"
+vscode "biomejs.biome"
 vscode "bradgashler.htmltagwrap"
 vscode "bradlc.vscode-tailwindcss"
 vscode "davidanson.vscode-markdownlint"
 vscode "dbaeumer.vscode-eslint"
 vscode "dotjoshjohnson.xml"
+vscode "ecmel.vscode-html-css"
 vscode "editorconfig.editorconfig"
 vscode "esbenp.prettier-vscode"
+vscode "jock.svg"
+vscode "johnpapa.vscode-peacock"
 vscode "lokalise.i18n-ally"
 vscode "mgmcdermott.vscode-language-babel"
 vscode "mhutchie.git-graph"
@@ -70,10 +87,14 @@ vscode "ms-azuretools.vscode-containers"
 vscode "ms-vscode-remote.remote-containers"
 vscode "ms-vscode.vscode-chat-customizations-evaluations"
 vscode "oxc.oxc-vscode"
+vscode "prisma.prisma"
 vscode "quicktype.quicktype"
 vscode "redhat.vscode-yaml"
 vscode "streetsidesoftware.code-spell-checker"
 vscode "tinkertrain.theme-panda"
 vscode "usernamehw.errorlens"
+vscode "vitest.explorer"
+vscode "voidzero.vite-plus-extension-pack"
 vscode "vscode-icons-team.vscode-icons"
+vscode "vue.volar"
 vscode "yoavbls.pretty-ts-errors"
