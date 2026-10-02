@@ -40,6 +40,9 @@ export SPROMPT="Correct '%R' to '%r' [nyae]?"
 # Enable color output for CLI tools like ls and grep
 export CLICOLOR=1
 
+# Use the tracked eza theme instead of the macOS-specific config directory
+export EZA_CONFIG_DIR="$HOME/.config/eza"
+
 #
 # commands
 #

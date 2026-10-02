@@ -151,6 +151,8 @@ MIT License.
 
 Originally forked from [nicksp/dotfiles](https://github.com/nicksp/dotfiles), licensed under the MIT License.
 
+- [Catppuccin for eza](https://github.com/catppuccin/eza), licensed under the MIT License.
+
 ## Inspiration
 
 - [holman/dotfiles](https://github.com/holman/dotfiles)
