@@ -81,6 +81,7 @@ command_exists eza && alias lsa="ls -a"
 command_exists eza && alias lt="ls --tree --level=2 --long --header --git --git-ignore"
 # ...(incl. hidden files)
 command_exists eza && alias lta="lt -a"
+command_exists eza && alias ll="lt -a"
 
 # Safer reversible file removal: https://github.com/sindresorhus/trash-cli
 command_exists trash && alias rm="trash"
@@ -103,6 +104,9 @@ alias get="curl -O -L"
 alias gst="git rev-parse --git-dir > /dev/null 2>&1 && git status -sb || ls"
 alias gs="gst"
 alias gcm="git commit -m"
+alias gc="git commit"
+alias gca="git commit --amend"
+alias gcan="git commit --amend --no-edit"
 alias gaa="git add -A"
 alias gd="git d"
 alias gdc="git dc"
