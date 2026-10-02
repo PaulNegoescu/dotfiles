@@ -80,7 +80,7 @@ Podman is the container engine. The setup keeps Docker-compatible command names:
 - `docker compose` uses Podman's Compose provider.
 - `/var/run/docker.sock` maps to the Podman machine so Docker-aware tools can use the same engine.
 
-The Podman setup step initializes and starts the default macOS Podman machine, then enables the compatible Docker socket. It requires administrator access when the socket helper is installed.
+The Podman setup step initializes and starts the default macOS Podman machine, then enables the compatible Docker socket. It requires administrator access when the socket helper is installed. Homebrew installations use Apple's built-in hypervisor to avoid depending on the separately distributed `krunkit` executable.
 
 ### Individual setup steps
 

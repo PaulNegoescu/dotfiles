@@ -12,9 +12,45 @@ if ! command -v podman > /dev/null; then
   exit 1
 fi
 
+initialize_machine() {
+  echo "Initializing the default Podman machine with Apple Hypervisor..."
+  podman machine init --provider applehv
+}
+
 if ! podman machine inspect > /dev/null 2>&1; then
-  echo "Initializing the default Podman machine..."
-  podman machine init
+  initialize_machine
+else
+  machine_provider=""
+
+  while read -r machine_name provider; do
+    if [ "$machine_name" = "podman-machine-default" ]; then
+      machine_provider="$provider"
+      break
+    fi
+  done < <(podman machine list --format '{{.Name}} {{.VMType}}')
+
+  if [ "$machine_provider" = "libkrun" ] && ! command -v krunkit > /dev/null; then
+    echo
+    echo "The existing Podman machine uses libkrun, but krunkit is unavailable."
+    echo "Homebrew Podman can instead use Apple's built-in hypervisor."
+    echo
+    echo "WARNING: Recreating the machine deletes its containers, images, and volumes."
+    printf "Recreate the default machine with Apple Hypervisor? [y/N] "
+
+    answer=""
+    read -r answer || true
+
+    case "$answer" in
+      y | Y | yes | Yes | YES)
+        podman machine rm --force
+        initialize_machine
+        ;;
+      *)
+        echo "Podman machine was left unchanged." >&2
+        exit 1
+        ;;
+    esac
+  fi
 fi
 
 machine_state="$(podman machine inspect --format '{{.State}}')"
