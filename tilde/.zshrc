@@ -29,11 +29,16 @@ source "$DOTFILES/zsh/init.zsh"
 [ -f ~/.zsh.local ] && source ~/.zsh.local
 
 # pnpm global executables
-export PNPM_HOME="$HOME/Library/pnpm"
+if [[ "$OSTYPE" == darwin* ]]; then
+  export PNPM_HOME="$HOME/Library/pnpm"
+else
+  export PNPM_HOME="$HOME/.local/share/pnpm"
+fi
 case ":$PATH:" in
-  *":$PNPM_HOME/bin:"*) ;;
-  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
 # Add GPG key
-export GPG_TTY=$(tty)
+GPG_TTY=$(tty 2> /dev/null || true)
+export GPG_TTY

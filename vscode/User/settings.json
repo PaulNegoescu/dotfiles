@@ -165,16 +165,23 @@
   },
   "terminal.external.osxExec": "Ghostty.app",
   "terminal.integrated.defaultProfile.osx": "zsh",
-  "terminal.integrated.defaultProfile.windows": "zsh (Git for Windows)",
+  "terminal.integrated.defaultProfile.windows": "Ubuntu 26.04 (WSL)",
   "terminal.integrated.profiles.windows": {
-    "zsh (Git for Windows)": {
-      "path": "C:\\Users\\paul109\\AppData\\Local\\Programs\\Git\\usr\\bin\\zsh.exe",
-      "args": ["-l", "-i"],
-      "env": {
-        "CHERE_INVOKING": "1",
-        "MSYSTEM": "MINGW64"
-      }
+    "Ubuntu 26.04 (WSL)": {
+      "path": "C:\\Windows\\System32\\wsl.exe",
+      "args": ["--distribution", "Ubuntu-26.04"]
     }
+  },
+  "terminal.integrated.profiles.linux": {
+    "zsh": {
+      "path": "/usr/bin/zsh",
+      "args": ["-i"]
+    }
+  },
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.automationProfile.linux": {
+    "path": "/usr/bin/zsh",
+    "args": ["-i"]
   },
   "terminal.integrated.fontSize": 14,
   // Disable terminal intellisense

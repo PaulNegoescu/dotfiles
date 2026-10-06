@@ -1,14 +1,16 @@
 # Paul's Dotfiles 🌮
 
-My personal dotfiles for configuring macOS with Zsh and Homebrew.
+My personal dotfiles for configuring macOS and Windows 11 with a shared Zsh development environment.
 
 > [!WARNING] I recommend forking this repository to create your own set of dotfiles.
 
-## Requirements
+## Platforms
 
-- macOS
-- Administrator access
-- An internet connection
+- macOS uses Homebrew, Ghostty, and native Podman.
+- Windows 11 uses WinGet, WezTerm, VS Code, Podman Desktop, and Ubuntu 26.04 under WSL 2.
+- Both platforms share Zsh, Starship, Git, Node.js, pnpm, Hunk, Delta, eza, fzf, and the rest of the tracked CLI configuration.
+
+Administrator access and an internet connection are required during setup.
 
 ## What's in there?
 
@@ -20,12 +22,13 @@ My personal dotfiles for configuring macOS with Zsh and Homebrew.
 - zsh / [fzf](zsh/fzf.zsh).
 - git / hunk terminal diff viewer.
 - Sensible [macOS defaults](setup/macos.sh).
+- A guided [Windows and WSL setup](docs/windows.md).
 - [Visual Studio Code settings synchronization](vscode/).
 - Config for other apps and utils.
 - [macOS apps and VSCode extensions](setup/Brewfile) I use.
 - [macOS tips & tricks](/docs/macos%20tips%20&%20tricks.md).
 
-## Installation
+## macOS installation
 
 1. Configure GitHub SSH
    1. [Generate SSH key and add it to the ssh-agent](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
@@ -72,6 +75,34 @@ To deliberately run every step without confirmation:
 
 The symlink step creates `~/.dotfiles` as a stable link to the repository. Shell configuration uses that stable path regardless of where the repository is cloned.
 
+## Windows 11 installation
+
+Open PowerShell in a checkout of this repository and run (the wizard installs PowerShell 7 as part of the core profile):
+
+```powershell
+Set-ExecutionPolicy -Scope Process Bypass
+./setup.ps1
+```
+
+The Windows wizard asks separately before installing:
+
+- core applications with WinGet: PowerShell, Git, VS Code, WezTerm, 7-Zip, Bulk Crap Uninstaller, Raycast, Podman, and Podman Desktop;
+- optional personal applications;
+- MesloLGS Nerd Font Mono;
+- WSL 2 with Ubuntu 26.04 LTS;
+- WezTerm and VS Code configuration;
+- native VS Code extensions;
+- the Podman machine;
+- the Linux development environment inside WSL.
+
+Every step defaults to **No**. Preview selected actions without changing the machine with:
+
+```powershell
+./setup.ps1 -DryRun
+```
+
+See the [Windows setup guide](docs/windows.md) for the two-layer architecture, restart points, MonoLisa installation, Podman integration, and individual commands.
+
 ### Containers
 
 Podman is the container engine. The setup keeps Docker-compatible command names:
@@ -80,7 +111,9 @@ Podman is the container engine. The setup keeps Docker-compatible command names:
 - `docker compose` uses Podman's Compose provider.
 - `/var/run/docker.sock` maps to the Podman machine so Docker-aware tools can use the same engine.
 
-The Podman setup step initializes and starts the default macOS Podman machine, then enables the compatible Docker socket. It requires administrator access when the socket helper is installed. Homebrew installations use Apple's built-in hypervisor to avoid depending on the separately distributed `krunkit` executable.
+On macOS, the setup initializes the native Podman machine and maps its compatible socket. On Windows, Podman Desktop owns one Podman machine and the Ubuntu client connects to its shared WSL socket. The tracked `docker` shim delegates to Podman on both platforms.
+
+`podman compose` is included in the Podman CLI, but it delegates to an external Compose provider. The setup therefore retains `podman-compose`; no Docker engine is installed.
 
 ### Individual setup steps
 
@@ -141,6 +174,14 @@ If this file exists, it will be automatically included after the configurations 
 cd ~/work/personal/dotfiles
 git pull --ff-only
 ./setup.sh
+```
+
+On Windows, pull from inside the WSL checkout and rerun the relevant wizard:
+
+```bash
+cd ~/work/personal/dotfiles
+git pull --ff-only
+./setup/wsl/setup.sh
 ```
 
 ## License

@@ -11,10 +11,16 @@ source_brew_plugin() {
 }
 
 # Activate Fish-like autosuggestions: https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#homebrew
-source_brew_plugin "zsh-autosuggestions"
+if ! source_brew_plugin "zsh-autosuggestions"; then
+  [[ -r /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] \
+    && source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
 
 # Enable zsh-fast-syntax-highlighting: https://github.com/zdharma-continuum/fast-syntax-highlighting#installation
-source_brew_plugin "zsh-fast-syntax-highlighting"
+if ! source_brew_plugin "zsh-fast-syntax-highlighting"; then
+  [[ -r /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] \
+    && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # Enable fzf: https://github.com/junegunn/fzf
 if command_exists fzf; then

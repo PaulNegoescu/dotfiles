@@ -1,6 +1,6 @@
 # Note: The first added entry gets referenced last
 
-if command -v getconf &> /dev/null; then
+if [[ "$OSTYPE" == darwin* ]] && command -v getconf &> /dev/null; then
   PATH="$(getconf PATH)"
 fi
 
@@ -13,12 +13,14 @@ prepend() {
 # Common local CLI install locations
 prepend "/usr/local/bin"
 prepend "$HOME/.local/bin"
+prepend "$HOME/.local/share/fnm"
 
-# Homebrew binaries
-# > $(brew --prefix)
-homebrew_path="/opt/homebrew"
-prepend "$homebrew_path/bin"
-prepend "$homebrew_path/sbin"
+# Homebrew binaries on macOS
+if [[ "$OSTYPE" == darwin* ]]; then
+  homebrew_path="/opt/homebrew"
+  prepend "$homebrew_path/bin"
+  prepend "$homebrew_path/sbin"
+fi
 
 # fnm, Node version manager: https://github.com/Schniz/fnm
 # Tell fnm explicitly that we're using zsh to avoid brittle autodetection

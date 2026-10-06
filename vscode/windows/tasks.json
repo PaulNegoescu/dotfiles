@@ -1,0 +1,41 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Project: Reveal in Explorer",
+      "type": "shell",
+      "command": "explorer.exe \"$(wslpath -w '${workspaceFolder}')\"",
+      "presentation": { "reveal": "never" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Folder: Reveal in Explorer",
+      "type": "shell",
+      "command": "explorer.exe \"$(wslpath -w '${fileDirname}')\"",
+      "presentation": { "reveal": "never" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Project: Reveal in WezTerm",
+      "type": "process",
+      "command": "wezterm.exe",
+      "args": [
+        "start",
+        "--domain-name",
+        "WSL:Ubuntu-26.04",
+        "--cwd",
+        "${workspaceFolder}"
+      ],
+      "presentation": { "reveal": "never" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Project: Open in GitHub",
+      "type": "shell",
+      "command": "git remote get-url origin | sed 's/\\.git$//' | sed 's/git@github\\.com:/https:\\/\\/github\\.com\\//' | xargs explorer.exe",
+      "options": { "cwd": "${workspaceFolder}" },
+      "presentation": { "reveal": "never" },
+      "problemMatcher": []
+    }
+  ]
+}
