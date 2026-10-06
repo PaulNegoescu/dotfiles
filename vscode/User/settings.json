@@ -13,7 +13,7 @@
   "workbench.fontAliasing": "auto",
 
   "editor.lineHeight": 1.6, // ? 0 has a similar effect and will automatically adjust based on the font-size.
-  "editor.fontFamily": "MonoLisa, \"MesloLGS NF\"",
+  "editor.fontFamily": "MonoLisa, \"MesloLGS Nerd Font Mono\"",
   "editor.fontLigatures": true,
   "editor.fontSize": 14,
 
