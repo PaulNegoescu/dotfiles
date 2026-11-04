@@ -47,6 +47,13 @@ if (-not $DryRun -and -not (Get-Command winget.exe -ErrorAction SilentlyContinue
 $Packages = if ($Profile -eq 'Core') { $CorePackages } else { $AppPackages }
 $Failures = [System.Collections.Generic.List[string]]::new()
 
+# WinGet reports an already-current package as an error rather than a no-op.
+$SuccessCodes = @(
+  0,
+  -1978335189, # 0x8A15002B APPINSTALLER_CLI_ERROR_UPDATE_NOT_APPLICABLE
+  -1978335135  # 0x8A150061 APPINSTALLER_CLI_ERROR_PACKAGE_ALREADY_INSTALLED
+)
+
 foreach ($package in $Packages) {
   $arguments = @(
     'install',
@@ -65,7 +72,7 @@ foreach ($package in $Packages) {
 
   Write-Host "Installing or updating $($package.Id)..." -ForegroundColor Cyan
   & winget.exe @arguments
-  if ($LASTEXITCODE -ne 0) {
+  if ($LASTEXITCODE -notin $SuccessCodes) {
     $Failures.Add($package.Id)
     Write-Warning "WinGet could not install $($package.Id). Continuing with the remaining packages."
   }
