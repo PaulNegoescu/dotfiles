@@ -11,7 +11,33 @@ if ($DryRun) {
   Write-Host '[dry-run] wsl.exe --set-default-version 2'
   Write-Host "[dry-run] wsl.exe --install --distribution $Distribution --no-launch"
   Write-Host "[dry-run] wsl.exe --set-default $Distribution"
+  Write-Host "[dry-run] create a Linux user and make it the default for $Distribution"
   return
+}
+
+# --no-launch skips Ubuntu's first-run user prompt, which would leave WSL logging in as root.
+function Initialize-LinuxUser {
+  $users = @(& wsl.exe -d $Distribution -u root -- getent passwd) |
+    Where-Object { [int]($_ -split ':')[2] -ge 1000 -and [int]($_ -split ':')[2] -lt 60000 }
+  if ($users) {
+    return
+  }
+
+  do {
+    $name = Read-Host 'Choose a Linux username for WSL (lowercase letters, digits, - or _)'
+  } until ($name -cmatch '^[a-z_][a-z0-9_-]{0,31}$')
+
+  & wsl.exe -d $Distribution -u root -- adduser --comment '' $name
+  if ($LASTEXITCODE -ne 0) {
+    throw "WSL could not create the Linux user $name."
+  }
+
+  & wsl.exe -d $Distribution -u root -- usermod -aG sudo $name
+  & wsl.exe --manage $Distribution --set-default-user $name
+  if ($LASTEXITCODE -ne 0) {
+    throw "WSL could not make $name the default user for $Distribution."
+  }
+  Write-Host "WSL now logs in to $Distribution as $name." -ForegroundColor Green
 }
 
 if (-not (Get-Command wsl.exe -ErrorAction SilentlyContinue)) {
@@ -32,6 +58,7 @@ $installed = @(& wsl.exe --list --quiet 2>$null) -replace "`0", ''
 if ($installed -contains $Distribution) {
   Write-Host "$Distribution is already installed."
   & wsl.exe --set-default $Distribution
+  Initialize-LinuxUser
   return
 }
 
@@ -63,5 +90,7 @@ if ($LASTEXITCODE -ne 0) {
   Write-Warning "The distribution was installed, but WSL could not make $Distribution the default yet."
 }
 
+Initialize-LinuxUser
+
 Write-Host "$Distribution was requested successfully." -ForegroundColor Green
-Write-Host 'Windows may require a restart. After restarting, launch Ubuntu once to create your Linux user, then rerun setup.ps1.'
+Write-Host 'Windows may require a restart. After restarting, rerun setup.ps1.'
