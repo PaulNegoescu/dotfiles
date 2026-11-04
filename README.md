@@ -15,7 +15,7 @@ Administrator access and an internet connection are required during setup.
 ## What's in there?
 
 - Handy [CLI scripts](bin/).
-- Coding agents [config automation](agents/).
+- Coding agent [config](tilde/.config/amp/).
 - [Custom zsh theme](tilde/.starship.toml) with Git status, etc. using [Starship](https://starship.rs/).
 - [Git aliases](tilde/.gitconfig).
 - [Zsh aliases](zsh/aliases.zsh).

@@ -32,6 +32,11 @@ fi
 prepend "$DOTFILES/bin/lib"
 prepend "$DOTFILES/bin"
 
+# WSL stand-ins for macOS commands (pbcopy, pbpaste, open)
+if grep -qi microsoft /proc/version 2> /dev/null; then
+  prepend "$DOTFILES/bin/wsl"
+fi
+
 # User binaries
 prepend "$HOME/bin"
 

@@ -38,3 +38,9 @@ if command_exists starship; then
   export STARSHIP_CONFIG=~/.starship.toml
   eval "$(starship init zsh)"
 fi
+
+# SSH agent outside macOS (launchd provides one there). keychain starts a single
+# agent and reuses it across shells, so AddKeysToAgent in ~/.ssh/config works.
+if [[ "$OSTYPE" != darwin* && -z "$SSH_AUTH_SOCK" ]] && command_exists keychain; then
+  eval "$(keychain --eval --quiet --noask)"
+fi

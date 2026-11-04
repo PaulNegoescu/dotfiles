@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# macOS-style pbcopy for WSL: copy stdin to the Windows clipboard.
+#
+# - Copy a file:
+#
+# `pbcopy < file.txt`
+
+set -euo pipefail
+
+powershell=$(command -v pwsh.exe || command -v powershell.exe || true)
+
+if [ -z "$powershell" ]; then
+  # clip.exe is always present but mangles non-ASCII text
+  exec clip.exe
+fi
+
+exec "$powershell" -NoProfile -NonInteractive -Command \
+  '[Console]::InputEncoding = [Text.UTF8Encoding]::new($false); Set-Clipboard -Value ([Console]::In.ReadToEnd())'

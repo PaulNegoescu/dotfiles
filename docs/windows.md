@@ -17,6 +17,7 @@ This keeps the Unix development workflow close to macOS without maintaining a se
    git clone https://github.com/PaulNegoescu/dotfiles.git $HOME\work\personal\dotfiles
    cd $HOME\work\personal\dotfiles
    ```
+
 1. Open PowerShell 7 in the checkout and run:
 
    ```powershell
@@ -45,6 +46,15 @@ This keeps the Unix development workflow close to macOS without maintaining a se
    ```
 
 The WSL wizard still works from a repository under `/mnt/c`, but large Git repositories and `node_modules` should live in the Linux filesystem.
+
+### Line endings
+
+The repository's `.gitattributes` keeps shell scripts on LF and PowerShell scripts on CRLF, whatever `core.autocrlf` is set to. A checkout made before `.gitattributes` existed may still contain CRLF shell scripts, which fail in WSL with `$'\r': command not found`. Commit or stash any local changes, then refresh it once after pulling (this rewrites every file in the checkout):
+
+```powershell
+git rm --cached -r -q .
+git reset --hard
+```
 
 ## Terminals and editor
 
@@ -76,6 +86,19 @@ wsl --shutdown
 ```
 
 Then reopen WezTerm and test the three commands above. Bind mounts should use projects stored in the WSL filesystem; cross-distribution Podman Desktop mounts can have different path semantics from a native Linux engine.
+
+## macOS commands in WSL
+
+`bin/wsl/` is added to `PATH` only inside WSL and provides stand-ins for macOS commands used by the scripts and aliases:
+
+- `pbcopy` and `pbpaste` use the Windows clipboard through PowerShell.
+- `open` opens files, folders, and URLs with their default Windows application.
+
+`flush-dns` flushes the Windows DNS cache, and `upup` updates Ubuntu packages and WinGet applications instead of macOS and Homebrew.
+
+## SSH agent
+
+macOS starts an SSH agent automatically; Ubuntu in WSL does not. The WSL packages step installs `keychain`, and Zsh uses it to start one agent shared by all shells. With `AddKeysToAgent yes` in `~/.ssh/config`, the passphrase is asked once per WSL session, on first use of the key.
 
 ## Git identity and authentication
 
