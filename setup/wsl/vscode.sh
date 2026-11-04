@@ -20,14 +20,19 @@ if [ "$DRY_RUN" = false ] && ! command -v code > /dev/null 2>&1; then
   exit 1
 fi
 
+# One CLI call for every extension, instead of a Node startup per extension.
+arguments=()
 while IFS= read -r extension; do
   case "$extension" in
     "" | \#*) continue ;;
   esac
-
-  if [ "$DRY_RUN" = true ]; then
-    echo "[dry-run] code --install-extension $extension --force"
-  else
-    code --install-extension "$extension" --force
-  fi
+  arguments+=(--install-extension "$extension")
 done < "$extension_file"
+arguments+=(--force)
+
+if [ "$DRY_RUN" = true ]; then
+  echo "[dry-run] code ${arguments[*]}"
+else
+  # VS Code Server's bundled Node prints a url.parse() DEP0169 warning on every run.
+  NODE_OPTIONS=--no-deprecation code "${arguments[@]}"
+fi
