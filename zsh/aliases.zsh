@@ -12,7 +12,6 @@ alias cd..="cd .."
 alias -- -="cd -" # previous working directory
 
 # Hot-access directories
-alias library="cd $HOME/Library"
 alias proj="cd $WORKSPACE"
 alias work="proj"
 alias personal="cd $WORKSPACE/personal"
@@ -34,12 +33,10 @@ alias sl="ls"
 alias gut="git"
 alias gti="git"
 alias mdkir="mkdir"
-alias brwe="brew"
+command -v brew > /dev/null 2>&1 && alias brwe="brew"
 
 # Shortcuts
 alias -- +x="chmod +x"
-alias o="open"
-alias oo="open -a 'Marta' ."
 alias g="git"
 alias d="docker"
 alias dc="docker compose"
@@ -53,10 +50,16 @@ alias python="python3"
 alias pn="pnpm"
 alias nvm="fnm"
 
-# Apps
-
-# File Manager
-alias ff="open -a 'Marta' ."
+if [[ "$OSTYPE" == darwin* ]]; then
+  alias library="cd $HOME/Library"
+  alias o="open"
+  alias oo="open -a 'Marta' ."
+  alias ff="open -a 'Marta' ."
+elif grep -qi microsoft /proc/version 2> /dev/null; then
+  alias o="explorer.exe"
+  alias oo="explorer.exe ."
+  alias ff="explorer.exe ."
+fi
 
 #
 # Built-ins upgrades
@@ -129,11 +132,13 @@ alias path='echo -e ${PATH//:/\\n}'
 alias gitroot='cd "$(git rev-parse --show-toplevel)"'
 alias gr="gitroot"
 
-# Cd into the directory shown by the front-most Finder window
-# Based on https://scriptingosx.com/2017/02/terminal-finder-interaction/
-cdf() {
-  cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
-}
+if [[ "$OSTYPE" == darwin* ]]; then
+  # Cd into the directory shown by the front-most Finder window
+  # Based on https://scriptingosx.com/2017/02/terminal-finder-interaction/
+  cdf() {
+    cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
+  }
+fi
 
 # Make a new directory and cd into it
 take() {
@@ -170,10 +175,12 @@ function git() {
 # macOS
 #
 
-# System
-alias shutdownmac="sudo shutdown -h now"
-alias restartmac="sudo shutdown -r now"
+if [[ "$OSTYPE" == darwin* ]]; then
+  # System
+  alias shutdownmac="sudo shutdown -h now"
+  alias restartmac="sudo shutdown -r now"
 
-# Show/hide all desktop icons (useful when presenting)
-alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+  # Show/hide all desktop icons (useful when presenting)
+  alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+  alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+fi

@@ -1,6 +1,7 @@
 name: Check
 
 on:
+  workflow_dispatch:
   pull_request:
   push:
     branches:
@@ -41,3 +42,32 @@ jobs:
 
       - name: Validate repository
         run: pnpm check
+
+  powershell:
+    runs-on: windows-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Validate PowerShell syntax
+        shell: pwsh
+        run: |
+          $failed = $false
+          Get-ChildItem -Recurse -Filter '*.ps1' | ForEach-Object {
+            $tokens = $null
+            $errors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile(
+              $_.FullName,
+              [ref]$tokens,
+              [ref]$errors
+            ) | Out-Null
+
+            if ($errors.Count -gt 0) {
+              $failed = $true
+              $errors | ForEach-Object { Write-Error "$($_.Extent.File): $($_.Message)" }
+            }
+          }
+
+          if ($failed) { exit 1 }

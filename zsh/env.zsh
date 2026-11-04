@@ -19,7 +19,9 @@ fi
 export VISUAL="$EDITOR"
 
 # Hide the “default interactive shell is now zsh” warning on macOS
-export BASH_SILENCE_DEPRECATION_WARNING=1
+if [[ "$OSTYPE" == darwin* ]]; then
+  export BASH_SILENCE_DEPRECATION_WARNING=1
+fi
 
 #
 # zsh stuff
@@ -107,15 +109,17 @@ export NPM_CONFIG_SAVE="true"
 export NPM_CONFIG_UPDATE_NOTIFIER="false"
 
 # Homebrew: https://docs.brew.sh/Manpage#environment
-export HOMEBREW_REQUIRE_TAP_TRUST=1
-export HOMEBREW_INSTALL_BADGE='☕'
-export HOMEBREW_NO_GITHUB_API=1
-export HOMEBREW_NO_ANALYTICS=1
-export HOMEBREW_NO_INSECURE_REDIRECT=1
-export HOMEBREW_NO_ENV_HINTS=1
-export HOMEBREW_NO_UPDATE_REPORT_NEW=1
-export HOMEBREW_BUNDLE_FILE="$DOTFILES/setup/Brewfile"
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+if [[ "$OSTYPE" == darwin* ]]; then
+  export HOMEBREW_REQUIRE_TAP_TRUST=1
+  export HOMEBREW_INSTALL_BADGE='☕'
+  export HOMEBREW_NO_GITHUB_API=1
+  export HOMEBREW_NO_ANALYTICS=1
+  export HOMEBREW_NO_INSECURE_REDIRECT=1
+  export HOMEBREW_NO_ENV_HINTS=1
+  export HOMEBREW_NO_UPDATE_REPORT_NEW=1
+  export HOMEBREW_BUNDLE_FILE="$DOTFILES/setup/Brewfile"
+  export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+fi
 
 # Ripgrep config file location
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"

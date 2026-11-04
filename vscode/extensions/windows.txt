@@ -1,0 +1,14 @@
+# Native Windows UI and WSL integration
+ms-vscode-remote.remote-wsl
+ms-vscode-remote.remote-containers
+ms-azuretools.vscode-containers
+adpyke.codesnap
+angelluisalmaraz.project-colorize
+beardedbear.beardedicons
+bierner.markdown-mermaid
+bierner.markdown-preview-github-styles
+johnpapa.vscode-peacock
+mhutchie.git-graph
+ms-vscode.vscode-chat-customizations-evaluations
+tinkertrain.theme-panda
+vscode-icons-team.vscode-icons

@@ -29,11 +29,21 @@ source "$DOTFILES/zsh/init.zsh"
 [ -f ~/.zsh.local ] && source ~/.zsh.local
 
 # pnpm global executables
-export PNPM_HOME="$HOME/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME/bin:"*) ;;
-  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
-esac
+if [[ "$OSTYPE" == darwin* ]]; then
+  export PNPM_HOME="$HOME/Library/pnpm"
+else
+  export PNPM_HOME="$HOME/.local/share/pnpm"
+fi
+# Newer pnpm releases put global executables in $PNPM_HOME/bin; older ones
+# used $PNPM_HOME itself. Add both (the bin directory wins) on every platform.
+for pnpm_bin in "$PNPM_HOME" "$PNPM_HOME/bin"; do
+  case ":$PATH:" in
+    *":$pnpm_bin:"*) ;;
+    *) export PATH="$pnpm_bin:$PATH" ;;
+  esac
+done
+unset pnpm_bin
 
 # Add GPG key
-export GPG_TTY=$(tty)
+GPG_TTY=$(tty 2> /dev/null || true)
+export GPG_TTY

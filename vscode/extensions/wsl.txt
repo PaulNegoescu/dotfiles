@@ -1,0 +1,24 @@
+# Development extensions installed into the Ubuntu WSL extension host
+biomejs.biome
+bradgashler.htmltagwrap
+bradlc.vscode-tailwindcss
+davidanson.vscode-markdownlint
+dbaeumer.vscode-eslint
+dotjoshjohnson.xml
+ecmel.vscode-html-css
+editorconfig.editorconfig
+esbenp.prettier-vscode
+jock.svg
+lokalise.i18n-ally
+mgmcdermott.vscode-language-babel
+mikestead.dotenv
+oxc.oxc-vscode
+prisma.prisma
+quicktype.quicktype
+redhat.vscode-yaml
+streetsidesoftware.code-spell-checker
+usernamehw.errorlens
+vitest.explorer
+voidzero.vite-plus-extension-pack
+vue.volar
+yoavbls.pretty-ts-errors

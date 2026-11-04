@@ -7,10 +7,7 @@ set -euo pipefail
 shell_scripts=(
   setup.sh
   setup/*.sh
-)
-
-bash_syntax_files=(
-  tilde/.bash_profile
+  setup/wsl/*.sh
 )
 
 zsh_syntax_files=(
@@ -23,12 +20,27 @@ while IFS= read -r script; do
   shell_scripts+=("$script")
 done < <(
   # Match shell scripts by shebang
-  find bin -maxdepth 1 -type f \
+  find bin bin/wsl -maxdepth 1 -type f \
     -exec grep -El '^#!(/bin/(ba)?sh|/usr/bin/env (ba)?sh)$' {} + \
     | grep -v '^bin/license$'
 )
 
-bash -n "${shell_scripts[@]}" "${bash_syntax_files[@]}"
-zsh -n "${zsh_syntax_files[@]}"
+# `bash -n a b c` only parses `a` (the rest become its arguments), so check
+# every file on its own and report all failures before exiting.
+syntax_failed=false
+
+for file in "${shell_scripts[@]}"; do
+  bash -n "$file" || syntax_failed=true
+done
+
+for file in "${zsh_syntax_files[@]}"; do
+  zsh -n "$file" || syntax_failed=true
+done
+
+if [ "$syntax_failed" = true ]; then
+  echo "Shell syntax check failed." >&2
+  exit 1
+fi
+
 shellcheck --severity=error "${shell_scripts[@]}"
 prettier --log-level warn --ignore-unknown --check "**/*.{js,cjs,ts,md,json,sh}" "bin/*"
