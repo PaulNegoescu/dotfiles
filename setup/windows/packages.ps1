@@ -18,26 +18,26 @@ $CorePackages = @(
   @{ Id = 'Klocman.BulkCrapUninstaller'; Source = 'winget' },
   @{ Id = 'Podman.CLI'; Source = 'winget' },
   @{ Id = 'RedHat.Podman-Desktop'; Source = 'winget' },
-  @{ Id = '9PFXXSHC64H3'; Source = 'msstore' }
+  @{ Id = '9PFXXSHC64H3'; Source = 'msstore' } # Raycast
 )
 
 $AppPackages = @(
   @{ Id = 'calibre.calibre'; Source = 'winget' },
-  @{ Id = 'Dell.DisplayManager'; Source = 'winget' },
+  @{ Id = 'Dell.DisplayAndPeripheralManager'; Source = 'winget' },
   @{ Id = 'Foxit.FoxitReader'; Source = 'winget' },
   @{ Id = 'ImputNet.Helium'; Source = 'winget' },
-  @{ Id = 'Legcord.Legcord'; Source = 'winget' },
+  @{ Id = 'smartfrigde.Legcord'; Source = 'winget' },
   @{ Id = 'Obsidian.Obsidian'; Source = 'winget' },
   @{ Id = 'Proton.ProtonDrive'; Source = 'winget' },
   @{ Id = 'Proton.ProtonMail'; Source = 'winget' },
   @{ Id = 'Proton.ProtonPass'; Source = 'winget' },
   @{ Id = 'OpenWhisperSystems.Signal'; Source = 'winget' },
-  @{ Id = 'Spotify.Spotify'; Source = 'winget' },
+  @{ Id = '9NCBCSZSJRSB'; Source = 'msstore' }, # Spotify
   @{ Id = 'Stremio.Stremio'; Source = 'winget' },
   @{ Id = 'TeamViewer.TeamViewer'; Source = 'winget' },
   @{ Id = 'VideoLAN.VLC'; Source = 'winget' },
   @{ Id = 'Zoom.Zoom'; Source = 'winget' },
-  @{ Id = '9NKSQGP7F2NH'; Source = 'msstore' }
+  @{ Id = '9NKSQGP7F2NH'; Source = 'msstore' } # WhatsApp
 )
 
 if (-not $DryRun -and -not (Get-Command winget.exe -ErrorAction SilentlyContinue)) {
