@@ -1,10 +1,19 @@
 #Requires -Version 5.1
 
 [CmdletBinding()]
-param([switch]$DryRun)
+param(
+  [switch]$DryRun,
+  # Only make sure the installed distribution has a non-root default user.
+  [switch]$UserOnly
+)
 
 $ErrorActionPreference = 'Stop'
 $Distribution = 'Ubuntu-26.04'
+
+if ($DryRun -and $UserOnly) {
+  Write-Host "[dry-run] create a Linux user and make it the default for $Distribution"
+  return
+}
 
 if ($DryRun) {
   Write-Host '[dry-run] wsl.exe --update'
@@ -38,6 +47,11 @@ function Initialize-LinuxUser {
     throw "WSL could not make $name the default user for $Distribution."
   }
   Write-Host "WSL now logs in to $Distribution as $name." -ForegroundColor Green
+}
+
+if ($UserOnly) {
+  Initialize-LinuxUser
+  return
 }
 
 if (-not (Get-Command wsl.exe -ErrorAction SilentlyContinue)) {
