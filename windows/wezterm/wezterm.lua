@@ -2,10 +2,17 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 config.default_domain = "WSL:Ubuntu-26.04"
-config.font = wezterm.font_with_fallback({
-  "MonoLisa",
-  "MesloLGS Nerd Font Mono",
-})
+-- MonoLisa is licensed separately; only ask for it when it is installed so WezTerm doesn't warn.
+local function font_installed(pattern)
+  local user_fonts = (os.getenv("LOCALAPPDATA") or ""):gsub("\\", "/") .. "/Microsoft/Windows/Fonts/"
+  return #wezterm.glob(user_fonts .. pattern) > 0 or #wezterm.glob("C:/Windows/Fonts/" .. pattern) > 0
+end
+
+local fonts = { "MesloLGS Nerd Font Mono" }
+if font_installed("MonoLisa*") then
+  table.insert(fonts, 1, "MonoLisa")
+end
+config.font = wezterm.font_with_fallback(fonts)
 config.font_size = 15.0
 config.line_height = 1.1
 
