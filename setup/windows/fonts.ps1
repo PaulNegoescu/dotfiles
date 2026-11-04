@@ -30,14 +30,30 @@ try {
 
   foreach ($font in $Fonts) {
     $destination = Join-Path $FontDirectory $font.Name
-    Copy-Item -Path $font.FullName -Destination $destination -Force
+    $current = (Test-Path $destination) -and
+      (Get-FileHash $destination).Hash -eq (Get-FileHash $font.FullName).Hash
+
+    if ($current) {
+      Write-Host "Already installed $($font.Name)"
+    }
+    else {
+      # Windows locks fonts it has loaded; a newer release can only replace them after sign-out.
+      try {
+        Copy-Item -Path $font.FullName -Destination $destination -Force
+      }
+      catch [System.IO.IOException] {
+        Write-Warning "$($font.Name) is in use. Sign out and rerun this step to update it."
+        continue
+      }
+      Write-Host "Installed $($font.Name)"
+    }
+
     New-ItemProperty `
       -Path 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' `
       -Name "$($font.BaseName) (TrueType)" `
       -Value $destination `
       -PropertyType String `
       -Force | Out-Null
-    Write-Host "Installed $($font.Name)"
   }
 }
 finally {
