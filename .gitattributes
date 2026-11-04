@@ -1,0 +1,20 @@
+# Normalize line endings so a Windows checkout can run the shell scripts in WSL.
+# Without this, Git for Windows (core.autocrlf=true) writes CRLF and bash fails on "\r".
+* text=auto eol=lf
+
+# PowerShell and Windows batch files keep CRLF on every platform
+*.ps1 text eol=crlf
+*.psm1 text eol=crlf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Binary assets
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+*.zip binary
