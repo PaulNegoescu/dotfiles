@@ -35,6 +35,19 @@ if ($installed -contains $Distribution) {
   return
 }
 
+# WSL 2 needs hardware virtualization; check before downloading a distribution it cannot start.
+$hypervisorRunning = (Get-CimInstance Win32_ComputerSystem).HypervisorPresent
+$firmwareVirtualization = @(Get-CimInstance Win32_Processor)[0].VirtualizationFirmwareEnabled
+if (-not $hypervisorRunning -and -not $firmwareVirtualization) {
+  throw 'CPU virtualization is disabled in the firmware. Enable Intel VT-x or AMD SVM in the BIOS/UEFI settings, boot Windows, then rerun this step.'
+}
+
+$platform = Get-CimInstance Win32_OptionalFeature -Filter "Name='VirtualMachinePlatform'"
+if ($platform.InstallState -ne 1) {
+  & wsl.exe --install --no-distribution
+  throw 'The Virtual Machine Platform component was just enabled. Restart Windows, then rerun this step.'
+}
+
 $available = @(& wsl.exe --list --online 2>$null) -replace "`0", ''
 if (-not ($available -match [regex]::Escape($Distribution))) {
   throw "$Distribution is not listed by WSL on this machine. Run 'wsl --list --online' and install the current Ubuntu LTS explicitly."
