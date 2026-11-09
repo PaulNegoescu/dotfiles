@@ -30,7 +30,14 @@ fi
 # Setup zoxide: https://github.com/ajeetdsouza/zoxide?tab=readme-ov-file#installation
 export _ZO_DATA_DIR=$HOME
 if command_exists zoxide; then
-  eval "$(zoxide init --cmd cd zsh)"
+  # Claude Code snapshots shell functions (including zoxide's `cd`) but not
+  # chpwd_functions, so `cd` there trips zoxide's doctor warning. Keep plain
+  # `cd` for it; `z`/`zi` remain available.
+  if [[ -n $CLAUDECODE ]]; then
+    eval "$(zoxide init zsh)"
+  else
+    eval "$(zoxide init --cmd cd zsh)"
+  fi
 fi
 
 # Starship prompt
