@@ -8,7 +8,16 @@ export LANG="en_US.UTF-8"
 export LANGUAGE="en_US.UTF-8"
 
 # Let each terminal emulator advertise its own capabilities through TERM.
-export WORKSPACE="$HOME/work"
+# Projects root: ~/work on macOS and native Linux. On WSL, fall back to the
+# Windows-side C:\work when there is no Linux-side checkout yet.
+# Set WORKSPACE before this file (e.g. in ~/.zshenv) to override.
+if [[ -z $WORKSPACE ]]; then
+  WORKSPACE="$HOME/work"
+  if [[ ! -d $WORKSPACE && -d /mnt/c/work ]] && grep -qi microsoft /proc/version 2> /dev/null; then
+    WORKSPACE="/mnt/c/work"
+  fi
+fi
+export WORKSPACE
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
