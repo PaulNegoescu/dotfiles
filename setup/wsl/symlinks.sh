@@ -56,6 +56,29 @@ links+=("tilde/.ssh/config|$HOME/.ssh/config")
 # Stable path for configs, regardless of where the repository is cloned
 links+=(".|$HOME/.dotfiles")
 
+# OpenSSH refuses a config that others can write, and files under /mnt/c show
+# up as mode 777, so a symlink into a repository on the Windows drive cannot
+# work. Copy the file instead; re-run this script after editing it.
+copy_ssh_config() {
+  local source=$1 destination=$2
+  local backup
+
+  if [ ! -L "$destination" ] && [ -f "$destination" ] && cmp -s "$source" "$destination"; then
+    chmod 600 "$destination"
+    echo "Already up to date: $destination"
+    return
+  fi
+
+  if [ -e "$destination" ] || [ -L "$destination" ]; then
+    backup="$destination.backup.$(date +%Y%m%d%H%M%S)"
+    mv "$destination" "$backup"
+    echo "Backed up $destination to $backup"
+  fi
+
+  install -m 600 "$source" "$destination"
+  echo "Copied $destination"
+}
+
 link_file() {
   local source=$1 destination=$2
   local backup
@@ -79,6 +102,8 @@ link_file() {
   mkdir -p "$(dirname "$destination")"
   if [ "$destination" = "$HOME/.ssh/config" ]; then
     chmod 700 "$HOME/.ssh"
+    copy_ssh_config "$source" "$destination"
+    return
   fi
 
   if [ -L "$destination" ] && [ "$(readlink "$destination")" = "$source" ]; then
