@@ -128,7 +128,7 @@ config.visual_bell = {
   fade_out_duration_ms = 150,
 }
 config.check_for_updates = false
-config.copy_on_select = true
+-- Default mouse bindings already copy completed selections to the clipboard.
 config.hide_mouse_cursor_when_typing = true
 
 -- Rounded tab pills, inspired by https://github.com/KevinSilvester/wezterm-config (MIT).
