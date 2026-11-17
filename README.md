@@ -6,7 +6,7 @@ My personal dotfiles for configuring macOS and Windows 11 with a shared Zsh deve
 
 ## Platforms
 
-- macOS uses Homebrew, Ghostty, and native Podman.
+- macOS uses Homebrew, WezTerm, and native Podman.
 - Windows 11 uses WinGet, WezTerm, VS Code, Podman Desktop, and Ubuntu 26.04 under WSL 2.
 - Both platforms share Zsh, Starship, Git, Node.js, pnpm, Hunk, Delta, eza, fzf, and the rest of the tracked CLI configuration.
 
@@ -17,6 +17,7 @@ Administrator access and an internet connection are required during setup.
 - Handy [CLI scripts](bin/).
 - Coding agents [config automation](agents/).
 - [Custom zsh theme](tilde/.starship.toml) with Git status, etc. using [Starship](https://starship.rs/).
+- [Shared WezTerm config](tilde/.wezterm.lua) with a Panda-inspired palette and platform-specific launch settings.
 - [Git aliases](tilde/.gitconfig).
 - [Zsh aliases](zsh/aliases.zsh).
 - zsh / [fzf](zsh/fzf.zsh).

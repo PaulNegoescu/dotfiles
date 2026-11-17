@@ -79,7 +79,7 @@ setopt_if_exists interactive_comments
 #
 
 # Hide the inverse "%" partial-line marker that cmux leaves above the prompt
-# on session switch (standalone Ghostty doesn't show it).
+# on session switch (standalone WezTerm doesn't show it).
 setopt_if_exists no_prompt_sp
 
 unset setopt_if_exists

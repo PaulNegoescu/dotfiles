@@ -39,7 +39,7 @@ cask "calibre" # E-book manager
 cask "cmux" # Terminal designed for parallel coding-agent sessions
 cask "ddpm" # Dell display and peripheral manager
 cask "foxitreader" # PDF reader
-cask "ghostty" # Main terminal emulator
+cask "wezterm" # Main terminal emulator
 cask "helium-browser" # Browser for testing
 cask "hiddenbar" # Menu bar management
 cask "hyperkey" # Caps Lock and modifier remapping

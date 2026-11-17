@@ -56,7 +56,7 @@ function Copy-ManagedFile {
 
 $CodeUserDirectory = Join-Path $env:APPDATA 'Code\User'
 Copy-ManagedFile `
-  -Source (Join-Path $DotfilesDir 'windows\wezterm\wezterm.lua') `
+  -Source (Join-Path $DotfilesDir 'tilde\.wezterm.lua') `
   -Destination (Join-Path $HOME '.wezterm.lua')
 Copy-ManagedFile `
   -Source (Join-Path $DotfilesDir 'vscode\User\settings.json') `

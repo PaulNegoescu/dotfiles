@@ -17,6 +17,7 @@ This keeps the Unix development workflow close to macOS without maintaining a se
    git clone https://github.com/PaulNegoescu/dotfiles.git $HOME\work\personal\dotfiles
    cd $HOME\work\personal\dotfiles
    ```
+
 1. Open PowerShell 7 in the checkout and run:
 
    ```powershell
@@ -48,7 +49,7 @@ The WSL wizard still works from a repository under `/mnt/c`, but large Git repos
 
 ## Terminals and editor
 
-WezTerm opens `Ubuntu-26.04` by default and uses a Panda-inspired palette. Its font fallback is:
+WezTerm opens `Ubuntu-26.04` by default and uses the same Panda-inspired configuration as macOS. Its font fallback is:
 
 1. MonoLisa, when the separately licensed font is installed manually on Windows.
 1. MesloLGS Nerd Font Mono, installed by the setup wizard.
@@ -109,4 +110,4 @@ Rerunning the setup is safe: WinGet upgrades or leaves installed packages alone,
 
 ## Native applications
 
-The optional WinGet profile mirrors cross-platform apps from the Brewfile where reliable Windows packages exist. It intentionally uses Windows Explorer, 7-Zip, Raycast, and Bulk Crap Uninstaller. macOS-only tools such as Ghostty, Marta, Keka, Hidden Bar, and AlDente are not installed.
+The optional WinGet profile mirrors cross-platform apps from the Brewfile where reliable Windows packages exist. It intentionally uses Windows Explorer, 7-Zip, Raycast, and Bulk Crap Uninstaller. macOS-only tools such as Marta, Keka, Hidden Bar, and AlDente are not installed.
