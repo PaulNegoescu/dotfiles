@@ -178,6 +178,7 @@ config.keys = {
   { key = "w", mods = "CTRL|SHIFT", action = act.CloseCurrentPane({ confirm = true }) },
   { key = "d", mods = "CTRL|SHIFT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
   { key = "d", mods = "CTRL|ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+  { key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") },
   {
     key = "F2",
     action = act.PromptInputLine({
