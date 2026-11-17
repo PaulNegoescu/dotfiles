@@ -84,6 +84,7 @@ Invoke-Step -Prompt 'Initialize Podman Desktop and its default machine?' `
 
 if (Confirm-Step 'Run the Linux setup wizard inside Ubuntu now?') {
   Write-Heading 'Run the WSL setup wizard'
+  & "$DotfilesDir/setup/windows/wsl.ps1" -UserOnly -DryRun:$DryRun
   if ($DryRun) {
     Write-Host "[dry-run] wsl.exe -d Ubuntu-26.04 --cd $DotfilesDir -- bash setup/wsl/setup.sh"
   }

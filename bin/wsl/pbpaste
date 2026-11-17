@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# macOS-style pbpaste for WSL: print the Windows clipboard to stdout.
+#
+# - Paste into a file:
+#
+# `pbpaste > file.txt`
+
+set -euo pipefail
+
+powershell=$(command -v pwsh.exe || command -v powershell.exe || true)
+
+if [ -z "$powershell" ]; then
+  echo "pbpaste: PowerShell is not reachable from WSL (is Windows interop enabled?)" >&2
+  exit 1
+fi
+
+"$powershell" -NoProfile -NonInteractive -Command \
+  '[Console]::OutputEncoding = [Text.UTF8Encoding]::new($false); [Console]::Out.Write((Get-Clipboard -Raw))' \
+  | tr -d '\r'

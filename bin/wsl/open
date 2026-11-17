@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+# macOS-style open for WSL: open files, folders, and URLs with their default
+# Windows application.
+#
+# - Open the current folder in Explorer:
+#
+# `open .`
+#
+# - Open a URL in the default browser:
+#
+# `open https://example.com`
+
+set -euo pipefail
+
+if [ $# -eq 0 ]; then
+  echo "Usage: open <file|folder|url>..." >&2
+  exit 1
+fi
+
+for target in "$@"; do
+  if [[ "$target" == -* ]]; then
+    echo "open: macOS option '$target' is not supported on Windows" >&2
+    exit 1
+  fi
+done
+
+for target in "$@"; do
+  if [[ "$target" =~ ^[A-Za-z][A-Za-z0-9+.-]*: ]] && [ ! -e "$target" ]; then
+    # URL or URI scheme (https:, mailto:, vscode:, ...)
+    windows_target=$target
+  else
+    windows_target=$(wslpath -w "$target")
+  fi
+
+  # explorer.exe exits with 1 even when it succeeds
+  explorer.exe "$windows_target" || true
+done

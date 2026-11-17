@@ -12,9 +12,11 @@ alias cd..="cd .."
 alias -- -="cd -" # previous working directory
 
 # Hot-access directories
-alias proj="cd $WORKSPACE"
+# Single quotes: expand $WORKSPACE when run, so ~/.zsh.local overrides apply
+# and paths with spaces stay intact.
+alias proj='cd "$WORKSPACE"'
 alias work="proj"
-alias personal="cd $WORKSPACE/personal"
+alias personal='cd "$WORKSPACE/personal"'
 
 # zshrc config
 alias zshrc="$EDITOR ~/.zshrc"
@@ -51,7 +53,7 @@ alias pn="pnpm"
 alias nvm="fnm"
 
 if [[ "$OSTYPE" == darwin* ]]; then
-  alias library="cd $HOME/Library"
+  alias library='cd "$HOME/Library"'
   alias o="open"
   alias oo="open -a 'Marta' ."
   alias ff="open -a 'Marta' ."

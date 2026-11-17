@@ -17,6 +17,11 @@ set -u
 if [[ "$(uname -s)" == "Darwin" ]]; then
   sudo dscacheutil -flushcache
   sudo killall -HUP mDNSResponder
+elif grep -qi microsoft /proc/version 2> /dev/null; then
+  # WSL resolves DNS through Windows, so flush the Windows cache
+  ipconfig.exe /flushdns
+elif command -v resolvectl > /dev/null 2>&1; then
+  sudo resolvectl flush-caches
 else
   echo 'Your system is not supported yet.'
 fi

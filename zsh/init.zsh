@@ -30,11 +30,24 @@ fi
 # Setup zoxide: https://github.com/ajeetdsouza/zoxide?tab=readme-ov-file#installation
 export _ZO_DATA_DIR=$HOME
 if command_exists zoxide; then
-  eval "$(zoxide init --cmd cd zsh)"
+  # Claude Code snapshots shell functions (including zoxide's `cd`) but not
+  # chpwd_functions, so `cd` there trips zoxide's doctor warning. Keep plain
+  # `cd` for it; `z`/`zi` remain available.
+  if [[ -n $CLAUDECODE ]]; then
+    eval "$(zoxide init zsh)"
+  else
+    eval "$(zoxide init --cmd cd zsh)"
+  fi
 fi
 
 # Starship prompt
 if command_exists starship; then
   export STARSHIP_CONFIG=~/.starship.toml
   eval "$(starship init zsh)"
+fi
+
+# SSH agent outside macOS (launchd provides one there). keychain starts a single
+# agent and reuses it across shells, so AddKeysToAgent in ~/.ssh/config works.
+if [[ "$OSTYPE" != darwin* && -z "$SSH_AUTH_SOCK" ]] && command_exists keychain; then
+  eval "$(keychain --eval --quiet --noask)"
 fi

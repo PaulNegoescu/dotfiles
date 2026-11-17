@@ -34,10 +34,15 @@ if [[ "$OSTYPE" == darwin* ]]; then
 else
   export PNPM_HOME="$HOME/.local/share/pnpm"
 fi
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+# Newer pnpm releases put global executables in $PNPM_HOME/bin; older ones
+# used $PNPM_HOME itself. Add both (the bin directory wins) on every platform.
+for pnpm_bin in "$PNPM_HOME" "$PNPM_HOME/bin"; do
+  case ":$PATH:" in
+    *":$pnpm_bin:"*) ;;
+    *) export PATH="$pnpm_bin:$PATH" ;;
+  esac
+done
+unset pnpm_bin
 
 # Add GPG key
 GPG_TTY=$(tty 2> /dev/null || true)

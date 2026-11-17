@@ -14,28 +14,79 @@ esac
 
 DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "$0")/../.." && pwd)}"
 
-links=(
-  "tilde/.gitconfig|$HOME/.gitconfig"
-  "tilde/.gitignore|$HOME/.gitignore"
-  "tilde/.gitmessage|$HOME/.gitmessage"
-  "tilde/.hushlogin|$HOME/.hushlogin"
-  "tilde/.inputrc|$HOME/.inputrc"
-  "tilde/.ripgreprc|$HOME/.ripgreprc"
-  "tilde/.starship.toml|$HOME/.starship.toml"
-  "tilde/.tlrc.toml|$HOME/.tlrc.toml"
-  "tilde/.zshenv|$HOME/.zshenv"
-  "tilde/.zshrc|$HOME/.zshrc"
-  "tilde/.config/bat|$HOME/.config/bat"
-  "tilde/.config/btop|$HOME/.config/btop"
-  "tilde/.config/eza|$HOME/.config/eza"
-  "tilde/.config/hunk|$HOME/.config/hunk"
-  "tilde/.ssh/config|$HOME/.ssh/config"
-  ".|$HOME/.dotfiles"
-)
+TILDE_DIR="$DOTFILES_DIR/tilde"
+
+# Files in tilde/ that are not dotfiles to link
+EXCLUDE_FILES=(".DS_Store" "README.md" ".ssh")
+
+# ~/.config entries that only make sense on macOS
+MACOS_ONLY_CONFIG=("cmux")
+
+contains() {
+  local needle=$1 item
+  shift
+  for item in "$@"; do
+    [ "$item" = "$needle" ] && return 0
+  done
+  return 1
+}
+
+# Discover links the same way setup/symlinks.sh does on macOS, so new files in
+# tilde/ are picked up on both platforms without maintaining a second list.
+links=()
+shopt -s dotglob nullglob
+for item_path in "$TILDE_DIR"/*; do
+  item=${item_path##*/}
+  contains "$item" "${EXCLUDE_FILES[@]}" && continue
+
+  if [ "$item" = ".config" ]; then
+    for config_path in "$item_path"/*; do
+      config_item=${config_path##*/}
+      contains "$config_item" "${MACOS_ONLY_CONFIG[@]}" && continue
+      links+=("tilde/.config/$config_item|$HOME/.config/$config_item")
+    done
+  else
+    links+=("tilde/$item|$HOME/$item")
+  fi
+done
+shopt -u dotglob nullglob
+
+# Link only SSH configuration; preserve keys and other SSH files
+links+=("tilde/.ssh/config|$HOME/.ssh/config")
+# Stable path for configs, regardless of where the repository is cloned
+links+=(".|$HOME/.dotfiles")
+
+# OpenSSH refuses a config that others can write, and files under /mnt/c show
+# up as mode 777, so a symlink into a repository on the Windows drive cannot
+# work. Copy the file instead; re-run this script after editing it.
+copy_ssh_config() {
+  local source=$1 destination=$2
+  local backup
+
+  if [ ! -L "$destination" ] && [ -f "$destination" ] && cmp -s "$source" "$destination"; then
+    chmod 600 "$destination"
+    echo "Already up to date: $destination"
+    return
+  fi
+
+  if [ -e "$destination" ] || [ -L "$destination" ]; then
+    backup="$destination.backup.$(date +%Y%m%d%H%M%S)"
+    mv "$destination" "$backup"
+    echo "Backed up $destination to $backup"
+  fi
+
+  install -m 600 "$source" "$destination"
+  echo "Copied $destination"
+}
 
 link_file() {
   local source=$1 destination=$2
   local backup
+
+  if [ ! -e "$source" ] && [ ! -L "$source" ]; then
+    echo "Skipped (source is missing): $source" >&2
+    return
+  fi
 
   if [ "$DRY_RUN" = true ]; then
     if [ -L "$destination" ] && [ "$(readlink "$destination")" = "$source" ]; then
@@ -49,6 +100,11 @@ link_file() {
   fi
 
   mkdir -p "$(dirname "$destination")"
+  if [ "$destination" = "$HOME/.ssh/config" ]; then
+    chmod 700 "$HOME/.ssh"
+    copy_ssh_config "$source" "$destination"
+    return
+  fi
 
   if [ -L "$destination" ] && [ "$(readlink "$destination")" = "$source" ]; then
     echo "Already linked: $destination"

@@ -42,6 +42,12 @@ if ! grep -qi microsoft /proc/version 2> /dev/null; then
   exit 1
 fi
 
+if [ "$(id -u)" -eq 0 ]; then
+  echo "This setup wizard must run as your Linux user, not root." >&2
+  echo "Run the WSL step of setup.ps1 to create one, or: wsl --manage <distro> --set-default-user <name>" >&2
+  exit 1
+fi
+
 confirm() {
   local answer
   if [ "$ASSUME_YES" = true ]; then

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Get macOS software updates, update Homebrew, npm, dotfiles, VS Code and some other software.
+# Get OS software updates (macOS, or Ubuntu and Windows on WSL), update Homebrew, npm, dotfiles, VS Code and some other software.
 #
 # - Run updates:
 #
@@ -32,40 +32,65 @@ echo
 dotfiles
 echo
 
-# macOS
-header "Updating macOS system…"
-sudo softwareupdate -ia --verbose
-echo
+is_macos=false
+is_wsl=false
+[ "$(uname -s)" = "Darwin" ] && is_macos=true
+grep -qi microsoft /proc/version 2> /dev/null && is_wsl=true
 
-# App Store
-# https://github.com/mas-cli/mas#known-issues
-# header "Updating apps from App Store…"
-# mas upgrade
-# echo
+if [ "$is_macos" = true ]; then
+  # macOS
+  header "Updating macOS system…"
+  sudo softwareupdate -ia --verbose
+  echo
 
-# Homebrew (formulae + casks without and with auto_updates)
-header "Updating Homebrew packages…"
-outdated_packages=$(brew outdated --greedy)
-if [ -n "$outdated_packages" ]; then
-  echo "📦 Outdated packages:"
-  echo "$outdated_packages"
-  brew upgrade --greedy
-else
-  echo "✨ All packages already up-to-date."
+  # App Store
+  # https://github.com/mas-cli/mas#known-issues
+  # header "Updating apps from App Store…"
+  # mas upgrade
+  # echo
 fi
-echo
 
-# Cleanup
-header "Cleaning up Homebrew…"
-brew cleanup --prune=all
-brew doctor || true
-echo
+if command -v apt-get > /dev/null 2>&1; then
+  header "Updating Ubuntu packages…"
+  sudo apt-get update
+  sudo apt-get upgrade --yes
+  sudo apt-get autoremove --yes
+  echo
+fi
 
-# Raycast
-header "Updating Raycast and its extensions…"
-open raycast://extensions/raycast/raycast/check-for-updates
-open raycast://extensions/raycast/raycast/check-for-extension-updates
-echo
+if [ "$is_wsl" = true ] && command -v winget.exe > /dev/null 2>&1; then
+  header "Updating Windows applications…"
+  winget.exe upgrade --all --accept-package-agreements --accept-source-agreements || true
+  echo
+fi
+
+if command -v brew > /dev/null 2>&1; then
+  # Homebrew (formulae + casks without and with auto_updates)
+  header "Updating Homebrew packages…"
+  outdated_packages=$(brew outdated --greedy)
+  if [ -n "$outdated_packages" ]; then
+    echo "📦 Outdated packages:"
+    echo "$outdated_packages"
+    brew upgrade --greedy
+  else
+    echo "✨ All packages already up-to-date."
+  fi
+  echo
+
+  # Cleanup
+  header "Cleaning up Homebrew…"
+  brew cleanup --prune=all
+  brew doctor || true
+  echo
+fi
+
+if [ "$is_macos" = true ]; then
+  # Raycast
+  header "Updating Raycast and its extensions…"
+  open raycast://extensions/raycast/raycast/check-for-updates
+  open raycast://extensions/raycast/raycast/check-for-extension-updates
+  echo
+fi
 
 # (p)npm
 header "Updating global (p)npm modules…"
@@ -73,9 +98,11 @@ npx taze -g major -i
 echo
 
 # Coding agents
-header "Updating coding agent tools…"
-amp update
-echo
+if command -v amp > /dev/null 2>&1; then
+  header "Updating coding agent tools…"
+  amp update
+  echo
+fi
 
 # Nyan dog!
 nyan

@@ -27,8 +27,10 @@ packages=(
   gitleaks
   glow
   jq
+  keychain
   less
   locales
+  lsof
   nano
   podman
   podman-compose
