@@ -20,7 +20,7 @@ TILDE_DIR="$DOTFILES_DIR/tilde"
 EXCLUDE_FILES=(".DS_Store" "README.md" ".ssh")
 
 # ~/.config entries that only make sense on macOS
-MACOS_ONLY_CONFIG=("ghostty" "cmux")
+MACOS_ONLY_CONFIG=("cmux")
 
 contains() {
   local needle=$1 item

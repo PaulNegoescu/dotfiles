@@ -163,7 +163,7 @@
     "path": "/opt/homebrew/bin/zsh",
     "args": ["-i"]
   },
-  "terminal.external.osxExec": "Ghostty.app",
+  "terminal.external.osxExec": "WezTerm.app",
   "terminal.integrated.defaultProfile.osx": "zsh",
   "terminal.integrated.defaultProfile.windows": "Ubuntu 26.04 (WSL)",
   "terminal.integrated.profiles.windows": {

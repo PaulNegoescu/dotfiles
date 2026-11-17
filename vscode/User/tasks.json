@@ -49,18 +49,18 @@
       "problemMatcher": []
     },
     {
-      "label": "Project: Reveal in Ghostty",
+      "label": "Project: Reveal in WezTerm",
       "type": "shell",
-      "command": "open -a 'Ghostty' --args start --cwd '${workspaceFolder}'",
+      "command": "wezterm start --cwd '${workspaceFolder}'",
       "presentation": {
         "reveal": "never"
       },
       "problemMatcher": []
     },
     {
-      "label": "Folder: Reveal in Ghostty",
+      "label": "Folder: Reveal in WezTerm",
       "type": "shell",
-      "command": "open -a 'Ghostty' --args start --cwd '${fileDirname}'",
+      "command": "wezterm start --cwd '${fileDirname}'",
       "presentation": {
         "reveal": "never"
       },

@@ -3,7 +3,10 @@ local act = wezterm.action
 local nf = wezterm.nerdfonts
 local config = wezterm.config_builder()
 
--- Panda Syntax-inspired palette shared with the macOS terminal setup.
+local is_macos = wezterm.target_triple:find("apple") ~= nil
+local is_windows = wezterm.target_triple:find("windows") ~= nil
+
+-- Panda Syntax-inspired palette shared by macOS and Windows.
 local panda = {
   base = "#292A2B",
   surface = "#343536",
@@ -17,15 +20,33 @@ local panda = {
   red = "#FF2C6D",
 }
 
-config.default_domain = "WSL:Ubuntu-26.04"
-config.launch_menu = {
-  { label = "PowerShell", args = { "pwsh.exe", "-NoLogo" }, domain = { DomainName = "local" } },
-}
+if is_windows then
+  config.default_domain = "WSL:Ubuntu-26.04"
+  config.launch_menu = {
+    { label = "PowerShell", args = { "pwsh.exe", "-NoLogo" }, domain = { DomainName = "local" } },
+  }
+elseif is_macos then
+  config.default_prog = { "/opt/homebrew/bin/zsh", "-l" }
+end
 
 -- MonoLisa is licensed separately; only ask for it when it is installed so WezTerm doesn't warn.
 local function font_installed(pattern)
-  local user_fonts = (os.getenv("LOCALAPPDATA") or ""):gsub("\\", "/") .. "/Microsoft/Windows/Fonts/"
-  return #wezterm.glob(user_fonts .. pattern) > 0 or #wezterm.glob("C:/Windows/Fonts/" .. pattern) > 0
+  local font_directories = {}
+
+  if is_windows then
+    local local_app_data = (os.getenv("LOCALAPPDATA") or ""):gsub("\\", "/")
+    font_directories = { local_app_data .. "/Microsoft/Windows/Fonts/", "C:/Windows/Fonts/" }
+  elseif is_macos then
+    font_directories = { (os.getenv("HOME") or "") .. "/Library/Fonts/", "/Library/Fonts/" }
+  end
+
+  for _, directory in ipairs(font_directories) do
+    if #wezterm.glob(directory .. pattern) > 0 then
+      return true
+    end
+  end
+
+  return false
 end
 
 local fonts = { "MesloLGS Nerd Font Mono" }
@@ -33,7 +54,7 @@ if font_installed("MonoLisa*") then
   table.insert(fonts, 1, "MonoLisa")
 end
 config.font = wezterm.font_with_fallback(fonts)
-config.font_size = 15.0
+config.font_size = is_macos and 17.0 or 15.0
 config.line_height = 1.1
 config.adjust_window_size_when_changing_font_size = false
 
@@ -77,7 +98,7 @@ config.colors = {
 }
 
 config.window_background_opacity = 1.0
-config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+config.window_decorations = "TITLE | RESIZE"
 config.window_padding = { left = 8, right = 8, top = 8, bottom = 4 }
 config.enable_scroll_bar = true
 config.inactive_pane_hsb = { saturation = 0.9, brightness = 0.7 }
@@ -86,8 +107,7 @@ config.command_palette_fg_color = panda.text
 config.command_palette_font_size = 13.0
 
 config.use_fancy_tab_bar = false
--- Integrated window buttons live in the tab bar, so it must stay visible.
-config.hide_tab_bar_if_only_one_tab = false
+config.hide_tab_bar_if_only_one_tab = true
 config.tab_max_width = 32
 config.switch_to_last_active_tab_when_closing_tab = true
 config.status_update_interval = 1000
@@ -108,6 +128,8 @@ config.visual_bell = {
   fade_out_duration_ms = 150,
 }
 config.check_for_updates = false
+config.copy_on_select = true
+config.hide_mouse_cursor_when_typing = true
 
 -- Rounded tab pills, inspired by https://github.com/KevinSilvester/wezterm-config (MIT).
 wezterm.on("format-tab-title", function(tab, _, _, _, hover, max_width)
@@ -174,11 +196,6 @@ wezterm.on("new-tab-button-click", function(window, pane, button)
 end)
 
 config.keys = {
-  { key = "t", mods = "CTRL|SHIFT", action = act.SpawnTab("CurrentPaneDomain") },
-  { key = "w", mods = "CTRL|SHIFT", action = act.CloseCurrentPane({ confirm = true }) },
-  { key = "d", mods = "CTRL|SHIFT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-  { key = "d", mods = "CTRL|ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-  { key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") },
   {
     key = "F2",
     action = act.PromptInputLine({
@@ -192,5 +209,21 @@ config.keys = {
   },
   { key = "F11", action = act.ToggleFullScreen },
 }
+
+if is_macos then
+  table.insert(config.keys, { key = "t", mods = "CMD", action = act.SpawnTab("CurrentPaneDomain") })
+  table.insert(config.keys, { key = "w", mods = "CMD", action = act.CloseCurrentPane({ confirm = true }) })
+  table.insert(config.keys, { key = "d", mods = "CMD|SHIFT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) })
+  table.insert(config.keys, { key = "d", mods = "CMD|ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) })
+  table.insert(config.keys, { key = "LeftArrow", mods = "CMD|SHIFT", action = act.ActivatePaneDirection("Left") })
+  table.insert(config.keys, { key = "RightArrow", mods = "CMD|SHIFT", action = act.ActivatePaneDirection("Right") })
+  table.insert(config.keys, { key = "Enter", mods = "CMD", action = act.SendString("\n") })
+else
+  table.insert(config.keys, { key = "t", mods = "CTRL|SHIFT", action = act.SpawnTab("CurrentPaneDomain") })
+  table.insert(config.keys, { key = "w", mods = "CTRL|SHIFT", action = act.CloseCurrentPane({ confirm = true }) })
+  table.insert(config.keys, { key = "d", mods = "CTRL|SHIFT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) })
+  table.insert(config.keys, { key = "d", mods = "CTRL|ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) })
+  table.insert(config.keys, { key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") })
+end
 
 return config
