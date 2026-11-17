@@ -57,7 +57,7 @@ config.colors = {
 }
 
 config.window_background_opacity = 1.0
-config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+config.window_decorations = "TITLE | RESIZE"
 config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
 config.tab_max_width = 32
